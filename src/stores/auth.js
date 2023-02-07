@@ -12,7 +12,7 @@ export const authStore = defineStore("auth", {
   actions: {
     async register(data) {
       try {
-        const credential = await createUserWithEmailAndPassword(auth, data.email, data.password)
+        const credential = await createUserWithEmailAndPassword(auth, data.email+'@gmail.com', data.password)
         const user = credential.user
 
         await userStore().addUserToFirestore(user.uid, data)
@@ -31,7 +31,7 @@ export const authStore = defineStore("auth", {
 
     async login(data) {
       try {
-        const cred = await signInWithEmailAndPassword(auth, data.email, data.password)
+        const cred = await signInWithEmailAndPassword(auth, data.email+'@gmail.com', data.password)
         if (cred.user) {
           const user = await userStore().fetchUser(cred.user.uid)
           if (user.type == 'educator') this.router.replace('/educator');

@@ -15,7 +15,7 @@
           E-Learning MySQL
         </q-toolbar-title>
 
-        <div><q-btn flat label="Log In"/></div>
+        <div><q-btn to="/auth/login" flat label="Log In"/></div>
       </q-toolbar>
     </q-header>
 
