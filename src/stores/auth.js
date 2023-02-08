@@ -12,7 +12,7 @@ export const authStore = defineStore("auth", {
   actions: {
     async register(data) {
       try {
-        const credential = await createUserWithEmailAndPassword(auth, data.email+'@gmail.com', data.password)
+        const credential = await createUserWithEmailAndPassword(auth, data.email + '@gmail.com', data.password)
         const user = credential.user
 
         await userStore().addUserToFirestore(user.uid, data)
@@ -31,19 +31,31 @@ export const authStore = defineStore("auth", {
 
     async login(data) {
       try {
-        const cred = await signInWithEmailAndPassword(auth, data.email+'@gmail.com', data.password)
+        const cred = await signInWithEmailAndPassword(auth, data.email + '@gmail.com', data.password)
         if (cred.user) {
           const user = await userStore().fetchUser(cred.user.uid)
-          if (user.type == 'educator') this.router.replace('/educator');
-          else this.router.replace('/student')
+          this.router.replace('/');
         }
-      } catch (err) {
-        Dialog.create({
-          title: "Sorry!",
-          message: `${err.code} - ${err.message}`
-        })
-      } finally {
+
         return true;
+      } catch (err) {
+        console.log(err.code);
+        const errCode = err.code;
+        let errMessage;
+
+        switch (errCode) {
+          case "auth/invalid-email":
+            errMessage = "Email is invalid";
+            break;
+          case "auth/user-not-found":
+            errMessage = "User is not registered.";
+            break;
+          case "auth/wrong-password":
+            errMessage = "Wrong password.";
+            break;
+        }
+
+        return { error: true, message: errMessage }
       }
 
     },
@@ -55,7 +67,7 @@ export const authStore = defineStore("auth", {
       this.router.replace('/auth')
     },
 
-    handleAuthStatechange() {
+    handleAuthState() {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           const data = await userStore().fetchUser(user.uid)

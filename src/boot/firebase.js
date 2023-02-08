@@ -5,12 +5,12 @@ import { getStorage } from "firebase/storage"
 import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBOsBDEFSTVR9zSOu0iHzIODWgfIIsD1Ek",
-  authDomain: "ccs-repo.firebaseapp.com",
-  projectId: "ccs-repo",
-  storageBucket: "ccs-repo.appspot.com",
-  messagingSenderId: "1508424018",
-  appId: "1:1508424018:web:8e97c8097404d7960b628b"
+  apiKey: "AIzaSyC8gH3sYyd14_SPtDzr9gc8n5QF78frP30",
+  authDomain: "e-learning-mysql.firebaseapp.com",
+  projectId: "e-learning-mysql",
+  storageBucket: "e-learning-mysql.appspot.com",
+  messagingSenderId: "828304489450",
+  appId: "1:828304489450:web:9ee765f1c972cbed871093"
 };
 
 const app = initializeApp(firebaseConfig);

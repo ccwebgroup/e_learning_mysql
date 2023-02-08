@@ -21,6 +21,9 @@
               :rules="[(val) => !!val || 'Field is required!']" />
             <q-input v-model="form.password" placeholder="Password" type="password" outlined dense
               :rules="[(val) => !!val || 'Field is required!']" />
+            <div class="text-negative text-center">
+              Sorry, {{ loginError }}
+            </div>
             <q-card-actions align="center" class="q-gutter-y-sm">
               <q-btn :loading="loadingBtn" label="Log In" type="submit" class="full-width" color="primary" />
               <q-btn to="/auth/register" label="Create an account" class="full-width" flat color="primary" no-caps />
@@ -47,10 +50,14 @@ const form = reactive({
   password: "",
 });
 
+const loginError = ref("")
 const loadingBtn = ref(false)
 const login = async () => {
   loadingBtn.value = true
   const res = await authStore().login({ ...form })
-  if (res) loadingBtn.value = false
+  if (res) {
+    if (res.error) loginError.value = res.message
+    loadingBtn.value = false
+  }
 }
 </script>

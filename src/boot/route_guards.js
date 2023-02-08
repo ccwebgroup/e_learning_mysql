@@ -26,16 +26,16 @@ export default boot(async ({ router }) => {
       }
     }
 
-    if (to.name == "login" && isAuthenticated.value) {
+    if (to.name == "Login" && isAuthenticated.value) {
       return {
         path: from.path
       }
     }
 
     if (to.meta.isAdmin && !tokenResult.claims.Admin) {
-      return {
-        path: from.path,
-      };
+      // return {
+      //   path: from.path,
+      // };
     }
   })
 })

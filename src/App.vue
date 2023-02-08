@@ -2,10 +2,8 @@
   <router-view />
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { authStore } from "./stores/auth";
 
-export default defineComponent({
-  name: 'App'
-})
+authStore().handleAuthState();
 </script>
