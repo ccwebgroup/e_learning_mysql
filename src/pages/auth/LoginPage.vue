@@ -17,12 +17,12 @@
         </q-card-section>
         <q-card-section>
           <q-form @submit="login" class="q-gutter-sm">
-            <q-input v-model="form.email" placeholder="Email" outlined dense
+            <q-input v-model="form.email" placeholder="Username" outlined dense
               :rules="[(val) => !!val || 'Field is required!']" />
             <q-input v-model="form.password" placeholder="Password" type="password" outlined dense
               :rules="[(val) => !!val || 'Field is required!']" />
             <div class="text-negative text-center">
-              Sorry, {{ loginError }}
+              {{ loginError }}
             </div>
             <q-card-actions align="center" class="q-gutter-y-sm">
               <q-btn :loading="loadingBtn" label="Log In" type="submit" class="full-width" color="primary" />

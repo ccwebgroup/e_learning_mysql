@@ -13,13 +13,14 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label class="text-subtitle1" header>
+    <q-drawer dark v-model="leftDrawerOpen" show-if-above bordered class="bg-indigo-9">
+      <q-list dark dense>
+        <q-item-label class="text-subtitle1 text-amber-5" header>
           Essential Lessons
         </q-item-label>
 
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+        <LessonsListVue />
       </q-list>
     </q-drawer>
 
@@ -30,9 +31,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onBeforeMount } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import LessonsListVue from 'src/components/LessonsList.vue';
 import { authStore } from 'src/stores/auth';
+import { lessonStore } from 'src/stores/lessons';
 
 const linksList = [
   {
@@ -42,6 +45,8 @@ const linksList = [
     link: '/'
   },
 ]
+
+onBeforeMount(() => lessonStore().getLessons())
 
 const leftDrawerOpen = ref(false)
 const authUser = computed(() => authStore().authUser)

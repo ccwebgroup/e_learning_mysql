@@ -89,3 +89,11 @@ exports.setUserType = functions.https.onCall(async (data, context) => {
     result: `User with ID: ${data.uid} has now a role of ${data.type}.`,
   };
 });
+
+exports.deleteUserFirestore = functions.auth.user().onDelete(async (user) => {
+  try {
+    await admin.firestore().collection("users").doc(user.uid).delete();
+  } catch (error) {
+
+  }
+});

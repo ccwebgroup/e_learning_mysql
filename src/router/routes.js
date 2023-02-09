@@ -2,15 +2,20 @@ const routes = [
   {
     path: '/admin',
     component: () => import("layouts/AdminLayout.vue"),
-    meta: {
-      requiresAuth: true,
-      isAdmin: true,
-    },
+    // meta: {
+    //   requiresAuth: true,
+    //   isAdmin: true,
+    // },
     children: [
       {
         path: "/admin",
         name: "Users",
         component: () => import("pages/admin/UsersPage.vue"),
+      },
+      {
+        path: "/admin/lessons",
+        name: "lessons",
+        component: () => import("pages/admin/LessonsPage.vue"),
       },
     ]
   },
@@ -34,6 +39,7 @@ const routes = [
     ],
   },
 
+  // Main Routes
   {
     path: '/',
     component: () => import("layouts/MainLayout.vue"),
@@ -41,6 +47,10 @@ const routes = [
       {
         path: "",
         component: () => import("pages/IndexPage.vue"),
+      },
+      {
+        path: "/lessons/:id",
+        component: () => import("src/pages/ViewLessonPage.vue"),
       },
     ]
   },

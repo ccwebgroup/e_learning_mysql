@@ -3,22 +3,23 @@
     <q-toolbar>
       <q-toolbar-title>Manage Users</q-toolbar-title>
 
-      <q-btn @click="userDialog = true" color="primary" label="Add User" class="float-right" />
+      <q-btn @click="userDialog = true" color="primary" flat label="Add User" class="float-right" />
     </q-toolbar>
     <div class="row q-gutter-sm justify-evenly">
       <div class="col-12">
-        <q-table :filter="filter" :rows="users" :columns="columns" :pagination="{ rowsPerPage: 10 }">
+        <q-table flat separator="cell" bordered dense :filter="filter" :rows="users" :columns="columns"
+          :pagination="{ rowsPerPage: 10 }">
           <template v-slot:top>
-            <q-input v-model="filter" outlined dense placeholder="Search">
+            <q-input v-model="filter" dense placeholder="Search" class="q-mb-sm">
               <template v-slot:prepend>
                 <q-icon name="search" />
               </template>
             </q-input>
           </template>
           <template v-slot:body-cell-actions="props">
-            <q-td>
-              <q-btn @click="editUser(props.row)" flat round size="sm" icon="edit" color="positive" />
-              <q-btn @click="deleteUser(props.row)" flat round size="sm" color="negative" icon="delete" />
+            <q-td class="text-center">
+              <q-btn @click="editUser(props.row)" flat round size="sm" icon="las la-edit" color="positive" />
+              <q-btn @click="deleteUser(props.row)" flat round size="sm" color="negative" icon="las la-trash" />
             </q-td>
           </template>
         </q-table>
@@ -27,7 +28,7 @@
 
     <q-dialog v-model="userDialog">
       <q-card style="width: 380px;">
-        <q-card-section class="text-h6">{{editmode? 'Update' : 'Add'}} User</q-card-section>
+        <q-card-section class="text-h6">{{ editmode? 'Update': 'Add' }} User</q-card-section>
         <q-card-section>
           <q-form ref="userForm" @reset="resetForm" @submit="editmode ? update() : save()">
             <q-select v-model="form.type" outlined dense :options="userTypes" label="User Type"
@@ -50,10 +51,6 @@
 <script setup>
 import { reactive, ref, onBeforeMount, computed } from "vue";
 import { userStore } from "stores/users";
-import { format } from 'quasar'
-
-
-const { capitalize } = format
 
 const editmode = ref(false);
 const userDialog = ref(false);
@@ -76,15 +73,18 @@ function resetForm() {
   form.password = "";
 }
 
-const userTypes = ["educator", "student", "admin"];
+const userTypes = ["user", "admin"];
 
 async function save() {
-  await userStore().addUser({
+  const res = await userStore().addUser({
     ...form,
     fullname: `${form.firstname} ${form.lastname}`,
   });
 
-  userForm.value.reset();
+  if (res) {
+    userDialog.value = false
+    userForm.value.reset();
+  }
 }
 
 function editUser(user) {
@@ -100,12 +100,15 @@ function editUser(user) {
 }
 
 async function update() {
-  await userStore().updateUser({
+  const res = await userStore().updateUser({
     ...form,
     fullname: `${form.firstname} ${form.lastname}`,
   });
 
-  userForm.value.reset();
+  if (res) {
+    userDialog.value = false
+    userForm.value.reset();
+  }
 }
 
 function deleteUser(user) {
@@ -122,11 +125,10 @@ onBeforeMount(() => getAllUsers());
 // User Table
 const filter = ref("");
 const columns = [
-  // { name: "uid", label: "ID", field: "uid", align: "left" },
-  { name: "type", label: "Type", field: "type", align: "left", format: (val) => capitalize(val) },
+  { name: "type", label: "Role", field: "type", align: "left" },
   { name: "fullname", label: "Full Name", field: "fullname", align: "left" },
-  { name: "username", label: "Username", field: "username", align: "left" },
-  { name: "email", label: "email", field: "email", align: "left" },
+  // { name: "username", label: "Username", field: "username", align: "left" },
+  { name: "email", label: "Email", field: "email", align: "left" },
   { name: "actions", field: "actions", align: "center" },
 ];
 </script>

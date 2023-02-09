@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { defineStore } from 'pinia'
 import { db, functions } from 'src/boot/firebase'
-import { Loading } from 'quasar'
+import { Loading, Dialog } from 'quasar'
 import { httpsCallable } from "firebase/functions";
 
 export const userStore = defineStore('users', {
@@ -22,47 +22,65 @@ export const userStore = defineStore('users', {
     async fetchUser(uid) {
       const docRef = doc(db, 'users', uid)
       const docSnap = await getDoc(docRef)
-      if(docSnap.exists()){
-        return {...docSnap.data()}
+      if (docSnap.exists()) {
+        return { ...docSnap.data() }
       }
     },
 
     async addUser(payload) {
-      Loading.show();
-      const addUser = httpsCallable(functions, "addUser");
-      const result = await addUser(payload);
+      try {
+        Loading.show();
+        const addUser = httpsCallable(functions, "addUser");
+        const result = await addUser(payload);
 
-      let userData = result.data;
-      userData = Object.assign(userData, payload);
-      this.users.unshift(userData);
-      Loading.hide();
+        let userData = result.data;
+        userData = Object.assign(userData, payload);
+        this.users.unshift(userData);
+        Loading.hide();
+
+        return true
+      } catch (error) {
+
+      }
     },
 
     async getAllUsers() {
-      Loading.show();
-      this.users = [];
-      const getAllUsers = httpsCallable(functions, "getAllUsers");
-      const result = await getAllUsers();
-      result.data.forEach(async (user) => {
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = await getDoc(userRef);
-        const userData = userSnap.data();
-        user = Object.assign(user, userData);
-        this.users.push(user);
-      });
+      try {
+        Loading.show();
+        this.users = [];
+        const getAllUsers = httpsCallable(functions, "getAllUsers");
+        const result = await getAllUsers();
+        result.data.forEach(async (user) => {
+          const userRef = doc(db, "users", user.uid);
+          const userSnap = await getDoc(userRef);
+          if (userSnap.exists()) {
+            const userData = userSnap.data();
+            user = Object.assign(user, userData);
+          }
+          this.users.push(user);
+        });
 
-      Loading.hide();
+        Loading.hide();
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     async updateUser(payload) {
-      Loading.show();
-      const updateUser = httpsCallable(functions, "updateUser");
-      const result = await updateUser(payload);
+      try {
+        Loading.show();
+        const updateUser = httpsCallable(functions, "updateUser");
+        const result = await updateUser(payload);
 
-      const userData = result.data;
-      const i = this.users.findIndex((user) => user.uid == userData.uid);
-      this.users[i] = payload;
-      Loading.hide();
+        const userData = result.data;
+        const i = this.users.findIndex((user) => user.uid == userData.uid);
+        this.users[i] = payload;
+        Loading.hide();
+
+        return true;
+      } catch (error) {
+
+      }
     },
 
     deleteUser(user) {

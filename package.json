@@ -12,10 +12,13 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "@vueup/vue-quill": "^1.1.0",
     "@vueuse/firebase": "^9.12.0",
     "firebase": "^9.17.1",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
+    "quill-blot-formatter-mobile": "^1.1.2",
+    "quill-image-compress": "^1.2.29",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
