@@ -1,22 +1,31 @@
 <template>
   <q-page padding>
-    <q-card flat>
-      <q-card-section class="text-h6">Lessons</q-card-section>
-      <q-card-actions align="right">
-        <q-btn outline @click="handleLessonsDialog(null)" color="primary" label="Add Lesson" no-caps />
-      </q-card-actions>
-    </q-card>
-    <div class="q-gutter-y-md">
-      <q-card v-for="lesson in lessons" :key="lesson.id" style="max-width: 500px;">
-        <q-card-section>
-          <q-item-label class="text-subtitle1">{{ lesson.title }}</q-item-label>
-          <q-item-label class="text-caption">{{
-            date.formatDate(lesson.createdAt.toDate(), 'MMM D, YYYY')
-          }}</q-item-label>
-          <p>{{ lesson.caption }}</p>
+    <div style="max-width: 1000px;" class="q-mx-auto">
+      <q-toolbar>
+        <q-toolbar-title>Lessons</q-toolbar-title>
 
-        </q-card-section>
-      </q-card>
+        <q-btn @click="handleLessonsDialog(null)" color="primary" flat label="Add Lesson" class="float-right" />
+      </q-toolbar>
+
+      <div class="q-gutter-y-md">
+        <template v-if="lessons.length">
+          <q-card v-for="lesson in lessons" :key="lesson.id">
+            <q-card-actions>
+              <q-btn @click="handleLessonsDialog(lesson)" outline label="Edit" padding="2px 15px" no-caps />
+            </q-card-actions>
+            <q-card-section>
+              <q-item-label class="text-subtitle1 text-primary text-bold">{{ lesson.title }}</q-item-label>
+              <div class="q-px-sm">
+                <p class="q-mt-sm">{{ lesson.caption }}</p>
+              </div>
+            </q-card-section>
+          </q-card>
+        </template>
+        <div v-else class="q-pa-md text-subtitle1 text-center">
+          <div><q-icon name="las la-inbox" size="85px" class="text-grey-7" /></div>
+          <div>No data available.</div>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>

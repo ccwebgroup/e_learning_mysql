@@ -1,28 +1,30 @@
 <template>
   <q-page padding>
-    <q-toolbar>
-      <q-toolbar-title>Manage Users</q-toolbar-title>
+    <div style="max-width: 1000px;" class="q-mx-auto">
+      <q-toolbar>
+        <q-toolbar-title>Manage Users</q-toolbar-title>
 
-      <q-btn @click="userDialog = true" color="primary" flat label="Add User" class="float-right" />
-    </q-toolbar>
-    <div class="row q-gutter-sm justify-evenly">
-      <div class="col-12">
-        <q-table flat separator="cell" bordered dense :filter="filter" :rows="users" :columns="columns"
-          :pagination="{ rowsPerPage: 10 }">
-          <template v-slot:top>
-            <q-input v-model="filter" dense placeholder="Search" class="q-mb-sm">
-              <template v-slot:prepend>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </template>
-          <template v-slot:body-cell-actions="props">
-            <q-td class="text-center">
-              <q-btn @click="editUser(props.row)" flat round size="sm" icon="las la-edit" color="positive" />
-              <q-btn @click="deleteUser(props.row)" flat round size="sm" color="negative" icon="las la-trash" />
-            </q-td>
-          </template>
-        </q-table>
+        <q-btn @click="userDialog = true" color="primary" flat label="Add User" class="float-right" />
+      </q-toolbar>
+      <div class="row q-gutter-sm justify-evenly">
+        <div class="col-12">
+          <q-table flat separator="cell" bordered dense :filter="filter" :rows="users" :columns="columns"
+            :pagination="{ rowsPerPage: 10 }">
+            <template v-slot:top>
+              <q-input v-model="filter" dense placeholder="Search" class="q-mb-sm">
+                <template v-slot:prepend>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </template>
+            <template v-slot:body-cell-actions="props">
+              <q-td class="text-center">
+                <q-btn @click="editUser(props.row)" flat round size="sm" icon="las la-edit" color="positive" />
+                <q-btn @click="deleteUser(props.row)" flat round size="sm" color="negative" icon="las la-trash" />
+              </q-td>
+            </template>
+          </q-table>
+        </div>
       </div>
     </div>
 

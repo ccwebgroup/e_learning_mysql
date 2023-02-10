@@ -2,17 +2,15 @@
   <q-page padding>
     <div v-if="lesson">
       <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-        <div flat v-show="!loading" class="q-pb-xl">
-          <q-card>
-            <q-card-section v-html="lesson.content" />
-          </q-card>
+        <div flat v-show="!loading" class="q-pa-sm">
+          <div v-html="lesson.content"></div>
         </div>
       </transition>
     </div>
 
     <!-- Loading design -->
     <q-inner-loading :showing="loading">
-      <q-spinner-ball size="50px" color="primary" />
+      <q-spinner-cube size="50px" color="primary" />
     </q-inner-loading>
 
     <!-- place QPageScroller at end of page -->
@@ -21,6 +19,14 @@
     </q-page-scroller>
   </q-page>
 </template>
+<style>
+pre {
+  background: rgb(22, 22, 22);
+  color: white;
+  padding: 10px;
+}
+</style>
+
 <style lang="sass">
 .ql-video
   width: 100%

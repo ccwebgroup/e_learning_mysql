@@ -14,8 +14,8 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <q-list>
+    <q-drawer dark show-if-above v-model="leftDrawerOpen" side="left" bordered class="bg-dark">
+      <q-list dark>
         <q-item-label class="text-subtitle1" header>
           Admin Panel
         </q-item-label>
@@ -40,7 +40,8 @@ function toggleLeftDrawer() {
 }
 
 const adminLinks = [
-  { link: "/admin/users", title: "Users", icon: "las la-user-friends" },
+  { link: "/", title: "Home Page", icon: "las la-home" },
+  { link: "/admin", title: "Users", icon: "las la-user-friends" },
   { link: "/admin/lessons", title: "Lessons", icon: "las la-swatchbook" },
 ];
 

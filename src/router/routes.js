@@ -2,10 +2,10 @@ const routes = [
   {
     path: '/admin',
     component: () => import("layouts/AdminLayout.vue"),
-    // meta: {
-    //   requiresAuth: true,
-    //   isAdmin: true,
-    // },
+    meta: {
+      requiresAuth: true,
+      isAdmin: true,
+    },
     children: [
       {
         path: "/admin",
@@ -24,13 +24,8 @@ const routes = [
   {
     path: "/auth",
     redirect: "/auth/login",
-    component: () => import("layouts/AuthLayout.vue"),
+    component: () => import("layouts/MainLayout.vue"),
     children: [
-      {
-        path: "/auth/register",
-        name: "Registration",
-        component: () => import("pages/auth/RegisterPage.vue"),
-      },
       {
         path: "/auth/login",
         name: "Login",

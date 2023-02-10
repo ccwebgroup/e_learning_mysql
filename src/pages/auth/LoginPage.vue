@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="bg-gradient">
     <div class="row justify-end q-mt-md">
-      <img width="600" src="~assets/firm.svg" alt="" class="absolute-center">
+      <img width="500" src="~assets/firm.svg" class="absolute-center">
       <q-card style="width: 320px; height: 500px;" class="q-mr-md">
         <q-card-section class="row justify-center">
           <!-- <q-avatar size="180px" >
@@ -21,12 +21,12 @@
               :rules="[(val) => !!val || 'Field is required!']" />
             <q-input v-model="form.password" placeholder="Password" type="password" outlined dense
               :rules="[(val) => !!val || 'Field is required!']" />
-            <div class="text-negative text-center">
+            <div v-if="loginError" class="text-negative text-center">
               {{ loginError }}
             </div>
             <q-card-actions align="center" class="q-gutter-y-sm">
               <q-btn :loading="loadingBtn" label="Log In" type="submit" class="full-width" color="primary" />
-              <q-btn to="/auth/register" label="Create an account" class="full-width" flat color="primary" no-caps />
+              <q-btn @click="handleRgister" label="Create an account" class="full-width" flat color="primary" no-caps />
             </q-card-actions>
           </q-form>
         </q-card-section>
@@ -44,13 +44,16 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { authStore } from "src/stores/auth";
+import { useQuasar } from "quasar";
+import RegisterDialog from "src/components/RegisterDialog.vue";
 
 const form = reactive({
   email: "",
   password: "",
 });
 
-const loginError = ref("")
+const $q = useQuasar()
+const loginError = ref(null)
 const loadingBtn = ref(false)
 const login = async () => {
   loadingBtn.value = true
@@ -59,5 +62,11 @@ const login = async () => {
     if (res.error) loginError.value = res.message
     loadingBtn.value = false
   }
+}
+
+function handleRgister() {
+  $q.dialog({
+    component: RegisterDialog
+  })
 }
 </script>

@@ -12,20 +12,31 @@ export const authStore = defineStore("auth", {
   actions: {
     async register(data) {
       try {
-        const credential = await createUserWithEmailAndPassword(auth, data.email + '@gmail.com', data.password)
+        data.fullname = `${data.firstname} ${data.lastname}`
+        const credential = await createUserWithEmailAndPassword(auth, data.username + '@gmail.com', data.password)
         const user = credential.user
-
         await userStore().addUserToFirestore(user.uid, data)
 
-        if (data.type == 'educator') this.router.replace('/educator')
-        else this.router.replace('/student')
-      } catch (err) {
-        Dialog.create({
-          title: "Sorry!",
-          message: `${err.code} - ${err.message}`
-        })
-      } finally {
-        return true;
+        return { success: true }
+      } catch (error) {
+        const errorCode = error.code;
+        let errMessage;
+        switch (errorCode) {
+          case "auth/email-already-in-use":
+            errMessage = "Email is already registered!";
+            break;
+          case "auth/invalid-email":
+            errMessage = "Invalid Email.";
+            break;
+          case "auth/operation-not-allowed":
+            errMessage = "Operation is not allowed.";
+            break;
+          case "auth/weak-password":
+            errMessage =
+              "Password is weak. Try putting some symbols and numbers. Should be 8 digits or more.";
+            break;
+        }
+        return { error: true, message: errMessage }
       }
     },
 
@@ -72,6 +83,7 @@ export const authStore = defineStore("auth", {
         if (user) {
           const data = await userStore().fetchUser(user.uid)
           this.authUser = Object.assign(user, data)
+
         }
         else this.authUser = null;
       })
