@@ -50,6 +50,10 @@ const routes = [
         path: "/lessons/:id",
         component: () => import("src/pages/ViewLessonPage.vue"),
       },
+      {
+        path: "/exercises/:id",
+        component: () => import("src/pages/ViewExercisesPage.vue"),
+      },
     ]
   },
 

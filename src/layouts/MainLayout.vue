@@ -20,6 +20,17 @@
           Essential Lessons
         </q-item-label>
 
+        <template v-if="authUser && authUser.type && authUser.type == 'admin'">
+          <EssentialLink v-bind="{
+            title: 'Admin Panel',
+            icon: 'las la-user-shield',
+            link: '/admin'
+          }" />
+
+          <q-separator dark spaced />
+        </template>
+
+
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
         <LessonsListVue />
       </q-list>

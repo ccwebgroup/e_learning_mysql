@@ -4,6 +4,13 @@
       <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
         <div flat v-show="!loading" class="q-pa-sm">
           <div v-html="lesson.content"></div>
+
+          <div class="rounded-borders bg-amber-9">
+            <q-item-label header class="text-h6 text-white">Test Yourself With Exercises</q-item-label>
+            <div class="bg-white q-pa-md">
+              <q-btn :to="`/exercises/${lesson.id}`" label="Start the exercises" color="primary" />
+            </div>
+          </div>
         </div>
       </transition>
     </div>
