@@ -10,12 +10,14 @@
       <div class="q-gutter-y-md">
         <template v-if="lessons.length">
           <q-card v-for="lesson in lessons" :key="lesson.id">
-            <q-card-actions>
+            <q-card-actions class="q-pb-none">
               <q-btn @click="handleLessonsDialog(lesson)" flat label="Edit" padding="2px 15px" no-caps />
               <q-btn @click="removeLesson(lesson)" flat label="Delete" padding="2px 15px" color="negative" no-caps />
             </q-card-actions>
             <q-card-section>
-              <q-item-label class="text-subtitle1 text-primary text-bold">{{ lesson.title }}</q-item-label>
+              <q-item-label class="text-subtitle1 text-primary text-bold"><span class="q-mr-sm">Lesson: {{
+                lesson.no
+              }} -</span>{{ lesson.title }}</q-item-label>
               <div class="q-px-sm">
                 <p class="q-mt-sm">{{ lesson.caption }}</p>
               </div>

@@ -79,6 +79,7 @@ onBeforeMount(async () => {
 
 watch(lessonData, (newVal, oldVal) => {
   if (newVal) {
+    form.no = newVal.no
     form.title = newVal.title
     form.caption = newVal.caption
     content.value = newVal.content

@@ -2,7 +2,7 @@
   <q-page padding>
     <div style="max-width: 1000px;" class="q-mx-auto">
       <q-toolbar>
-        <q-toolbar-title>Manage Users</q-toolbar-title>
+        <q-toolbar-title>Users</q-toolbar-title>
 
         <q-btn @click="userDialog = true" color="primary" flat label="Add User" class="float-right" />
       </q-toolbar>
