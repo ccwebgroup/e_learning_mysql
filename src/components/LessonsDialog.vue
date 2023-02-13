@@ -3,9 +3,16 @@
     <q-card class="q-px-md">
       <q-card-section>
         <q-form @submit="lesson ? update() : save()" class="q-gutter-y-sm">
-          <div>
-            <q-item-label>Lesson Title</q-item-label>
-            <q-input v-model="form.title" outlined dense autogrow :rules="[(val) => !!val || 'Title is required!']" />
+          <div class="row q-gutter-x-sm">
+            <div class="col-12 col-md-2">
+              <q-item-label>Lesson No.</q-item-label>
+              <q-input v-model="form.no" type="number" mask="#####" outlined dense autogrow
+                :rules="[(val) => !!val || 'No. is required!']" />
+            </div>
+            <div class="col-12 col-md-10">
+              <q-item-label>Lesson Title</q-item-label>
+              <q-input v-model="form.title" outlined dense autogrow :rules="[(val) => !!val || 'Title is required!']" />
+            </div>
           </div>
           <div>
             <q-item-label>Caption</q-item-label>
@@ -40,18 +47,6 @@ pre {
 }
 </style>
 
-<style lang="sass">
-.ql-editor
-  font-size: 16px
-.ql-video
-  width: 100%
-  height: 56.25vw
-  max-height: calc(800px / 16 * 9)
-img
-  width: 100%
-  max-width: 750px
-  height: auto
-</style>
 <script setup>
 import { useDialogPluginComponent } from 'quasar';
 import { reactive, ref, onBeforeMount, computed, watch } from 'vue';
@@ -59,7 +54,8 @@ import { lessonStore } from 'stores/lessons'
 
 import { QuillEditor } from "@vueup/vue-quill";
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-import BlotFormatter from 'quill-blot-formatter-mobile/dist/BlotFormatter';
+// import BlotFormatter from 'quill-blot-formatter-mobile/dist/BlotFormatter';
+import BlotFormatter from 'quill-blot-formatter';
 import ImageCompress from "quill-image-compress";
 
 
@@ -68,6 +64,7 @@ const { dialogRef, onDialogOK } = useDialogPluginComponent()
 const props = defineProps({ lesson: Object })
 
 const form = reactive({
+  no: null,
   title: "",
   caption: "",
 })

@@ -11,7 +11,8 @@
         <template v-if="lessons.length">
           <q-card v-for="lesson in lessons" :key="lesson.id">
             <q-card-actions>
-              <q-btn @click="handleLessonsDialog(lesson)" outline label="Edit" padding="2px 15px" no-caps />
+              <q-btn @click="handleLessonsDialog(lesson)" flat label="Edit" padding="2px 15px" no-caps />
+              <q-btn @click="removeLesson(lesson)" flat label="Delete" padding="2px 15px" color="negative" no-caps />
             </q-card-actions>
             <q-card-section>
               <q-item-label class="text-subtitle1 text-primary text-bold">{{ lesson.title }}</q-item-label>
@@ -47,5 +48,9 @@ function handleLessonsDialog(lesson) {
       lesson: lesson
     }
   })
+}
+
+async function removeLesson(lesson) {
+  await lessonStore().deleteLesson(lesson.id)
 }
 </script>

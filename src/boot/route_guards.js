@@ -21,9 +21,9 @@ export default boot(async ({ router }) => {
       tokenResult = await auth.currentUser.getIdTokenResult();
 
     if (to.meta.requiresAuth && !isAuthenticated.value) {
-      return {
-        path: '/auth'
-      }
+      // return {
+      //   path: '/auth'
+      // }
     }
 
     if (to.name == "Login" && isAuthenticated.value) {
@@ -32,10 +32,10 @@ export default boot(async ({ router }) => {
       }
     }
 
-    if (to.meta.isAdmin && !tokenResult.claims.Admin) {
-      // return {
-      //   path: from.path,
-      // };
-    }
+    // if (to.meta.isAdmin && !tokenResult.claims.Admin) {
+    //   // return {
+    //   //   path: from.path,
+    //   // };
+    // }
   })
 })
