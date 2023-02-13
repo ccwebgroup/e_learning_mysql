@@ -14,8 +14,11 @@ const routes = [
       },
       {
         path: "/admin/lessons",
-        name: "lessons",
         component: () => import("pages/admin/LessonsPage.vue"),
+      },
+      {
+        path: "/admin/exercises/:id",
+        component: () => import("pages/admin/ExercisesPage.vue"),
       },
     ]
   },
