@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, setDoc, Timestamp, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore'
 import { defineStore } from 'pinia'
 import { Dialog, Loading } from 'quasar'
 import { db } from 'src/boot/firebase'
@@ -12,6 +12,9 @@ export const lessonStore = defineStore('lessons', {
 
   actions: {
     async addLesson(data, content) {
+      // parse in lesson no
+      data.no = parseInt(data.no)
+
       try {
         Loading.show()
         const colRef = collection(db, 'lessons')
@@ -24,7 +27,7 @@ export const lessonStore = defineStore('lessons', {
           body: content
         })
 
-        this.lessons.unshift({ ...data, id: snap.id, createdAt: Timestamp.now() })
+        this.lessons.push({ ...data, id: snap.id, createdAt: Timestamp.now() })
         Loading.hide()
         return true;
       } catch (error) {
@@ -33,6 +36,9 @@ export const lessonStore = defineStore('lessons', {
     },
 
     async updateLesson(id, data, content) {
+      // parse in lesson no
+      data.no = parseInt(data.no)
+
       try {
         Loading.show()
         const lessonRef = doc(db, 'lessons', id)
@@ -95,7 +101,9 @@ export const lessonStore = defineStore('lessons', {
       try {
         Loading.show()
         const colRef = collection(db, 'lessons')
-        const snap = await getDocs(colRef)
+        const q = query(colRef, orderBy('no', 'asc'))
+
+        const snap = await getDocs(q)
         snap.forEach(snapData => {
           const data = { ...snapData.data(), id: snapData.id }
 
