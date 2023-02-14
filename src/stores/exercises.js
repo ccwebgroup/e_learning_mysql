@@ -28,8 +28,8 @@ export const exerciseStore = defineStore('exercises', {
     },
 
     async getExercises(lessonId) {
+      this.exercises = []
       try {
-        Loading.show()
         const lessonRef = doc(db, 'lessons', lessonId)
         const colRef = collection(lessonRef, 'exercises')
         const q = query(colRef, orderBy('no', 'asc'))
@@ -42,7 +42,6 @@ export const exerciseStore = defineStore('exercises', {
           if (i == -1) this.exercises.push(data)
         })
 
-        Loading.hide()
         return true;
       } catch (error) {
         console.log(error);

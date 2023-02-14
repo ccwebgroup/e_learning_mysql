@@ -4,7 +4,7 @@
       <q-card-section class="q-pb-none">SQL Statement</q-card-section>
       <q-card-section class="q-py-none">
         <q-input autofocus input-style="font-family: monospace; font-size: 17px" v-model="query" type="textarea"
-          outlined />
+          outlined @keyup="modifyQuery" />
       </q-card-section>
 
       <q-card-actions align="right">
@@ -12,8 +12,11 @@
         <q-btn label="Clear" flat dense v-close-popup />
       </q-card-actions>
 
-      <q-card-section>
+      <q-card-section v-if="qResult">
         <div>{{ qResult }}</div>
+      </q-card-section>
+      <q-card-section v-if="qError" class="text-negative">
+        <div>{{ qError }}</div>
       </q-card-section>
     </q-card>
   </div>
@@ -21,14 +24,15 @@
 
 <script setup>
 import { useDialogPluginComponent } from 'quasar';
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import initSqlJs from "sql.js"
 
 defineEmits([...useDialogPluginComponent.emits])
 const { dialogRef, onDialogOK } = useDialogPluginComponent()
 const props = defineProps({ lesson: Object, exercise: Object })
 const query = ref('')
-const qResult = ref('')
+const qResult = ref(null)
+const qError = ref(null)
 
 function resetForm() {
   query.value = ''
@@ -38,7 +42,10 @@ function textTrimed(text) {
   console.log(text.trim());
 }
 
-const trimmedValue = computed(() => query.value.replace(/^\s+|\s+$/g, ''))
+const trimmed = ref()
+function modifyQuery(event) {
+  trimmed.value = event.target.value.trim();
+}
 
 
 async function submitQuery() {
@@ -53,10 +60,10 @@ async function submitQuery() {
     const correct_answer = props.exercise.answer.trim().toLowerCase()
 
     console.log(correct_answer);
-    console.log(trimmedValue.value);
+    console.log(trimmed.value);
   } catch (error) {
     console.error(error)
-    qResult.value = error
+    qError.value = error
   }
 }
 

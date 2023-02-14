@@ -11,6 +11,12 @@
   </q-item>
 </template>
 
+<style lang="scss">
+.q-router-link--exact-active {
+  background-color: rgba(0, 0, 0, 0.534);
+}
+</style>
+
 <script>
 import { defineComponent } from 'vue'
 

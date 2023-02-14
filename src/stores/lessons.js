@@ -84,6 +84,7 @@ export const lessonStore = defineStore('lessons', {
     },
 
     async getLesson(id) {
+      this.lesson = null
       try {
         const lessonRef = doc(db, 'lessons', id)
         const contentRef = doc(lessonRef, 'content', id)

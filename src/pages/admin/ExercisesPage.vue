@@ -20,13 +20,13 @@
 
           <q-card v-for="exercise in exercises" :key="exercise.id">
             <q-card-section>
-              <q-item-label class="text-subtitle1">{{ `Exercise No. ${exercise.no}` }}</q-item-label>
-              <q-item-label class="q-pt-sm text-subtitle2 text-primary">Instructions</q-item-label>
-              {{ exercise.instruction }}
-              <q-item-label class="q-pt-sm text-subtitle2 text-positive">Query Statement Answer</q-item-label>
-              <pre class="query-statement">
-                {{ exercise.answer }}
-              </pre>
+              <q-item-label class="text-subtitle2 text-primary">{{ `Exercise No. ${exercise.no}` }}</q-item-label>
+
+              <div class="q-py-sm text-subtitle1">
+                {{ exercise.instruction }}
+              </div>
+              <q-item-label class="q-pt-sm text-subtitle2 text-primary">Choices</q-item-label>
+
             </q-card-section>
           </q-card>
         </div>

@@ -13,7 +13,7 @@
           <div class="q-py-md text-subtitle1">
             {{ exercises[current - 1].instruction }}
           </div>
-          <ExerciseForm :exercise="exercises[current - 1]" />
+          <!-- <ExerciseForm :exercise="exercises[current - 1]" /> -->
         </q-card-section>
 
       </q-card>

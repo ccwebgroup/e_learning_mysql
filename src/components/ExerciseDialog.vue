@@ -19,17 +19,30 @@
           </div>
 
           <div>
-            <q-item-label class="q-mb-xs">Instruction</q-item-label>
-            <q-input v-model="form.instruction" type="textarea" :rules="[val => !!val || 'Fill instructions!']" dense />
+            <q-item-label class="q-mb-xs text-subtitle2 text-primary">Question</q-item-label>
+            <q-input v-model="form.instruction" type="textarea" autogrow :rules="[val => !!val || 'Fill instructions!']"
+              dense />
+          </div>
+
+
+          <!-- Choices Display -->
+          <div class="q-px-md">
+            <div v-for="item in form.choices" :key="item.index">
+              <q-checkbox @change="form.answer == item.index" v-model="form.answer" :val="item.index" :label="item.text"
+                :true-value="item.index" :false-value="!item.index" />
+              <!-- <input type="checkbox" :checked="form.answer == item.index"><span>{{ item.text }}</span> -->
+            </div>
           </div>
 
           <div>
-            <q-item-label class="text-positive q-mb-xs">Query Statement Answer</q-item-label>
-            <q-input v-model="form.answer" type="textarea" :rules="[val => !!val || 'Fill the answer!']" dense
-              outlined />
+            <q-item-label class="text-subtitle2 text-primary  q-mb-xs">Choices</q-item-label>
+            <q-input v-model="choiceInput" type="textarea" autogrow dense outlined hide-bottom-space
+              placeholder="Type description" />
+            <q-btn :disable="!choiceInput" @click="addChoice(form.choices.length + 1)" label="Add choice" no-caps
+              outline color="primary" class="full-width q-mt-xs" />
           </div>
 
-          <q-card-actions align="right">
+          <q-card-actions align="right" class="q-pt-md">
             <q-btn :loading="isLoading" unelevated type="submit" label="Submit" color="primary" dense />
             <q-btn label="Cancel" flat dense v-close-popup />
           </q-card-actions>
@@ -48,12 +61,28 @@ defineEmits([...useDialogPluginComponent.emits])
 const { dialogRef, onDialogOK } = useDialogPluginComponent()
 const props = defineProps({ lesson: Object })
 
+const choiceInput = ref('')
 const form = reactive({
   no: null,
   instruction: "",
-  answer: "",
+  answer: 0,
+  choices: [],
   points: null,
 })
+
+function addChoice(index) {
+  form.choices.push({
+    index: index,
+    text: choiceInput.value,
+    selected: false
+  })
+
+  choiceInput.value = ''
+}
+
+function setAnswer(e) {
+  console.log("dsadasd");
+}
 
 const isLoading = ref(false)
 async function saveExercise() {
