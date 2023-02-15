@@ -2,10 +2,10 @@
   <q-dialog ref="dialogRef">
     <q-card style="width: 600px;">
       <q-card-section class="text-h6">
-        Create Exercise
+        {{ exercise? 'Edit': 'Create' }} Exercise
       </q-card-section>
       <q-card-section class="q-py-none">
-        <q-form @submit="saveExercise" class="q-gutter-sm">
+        <q-form @submit="exercise ? updateExercise() : saveExercise()" class="q-gutter-sm">
           <div class="flex q-gutter-x-sm">
             <q-input v-model="form.no" dense mask="#" fill-mask="0" reverse-fill-mask :rules="[
               val => (val !== null && val !== '' && parseInt(val) != NaN) || 'Please type a number',
@@ -43,7 +43,8 @@
           </div>
 
           <q-card-actions align="right" class="q-pt-md">
-            <q-btn :loading="isLoading" unelevated type="submit" label="Submit" color="primary" dense />
+            <q-btn :loading="isLoading" unelevated type="submit" :label="exercise ? 'Update' : 'Submit'" color="primary"
+              dense />
             <q-btn label="Cancel" flat dense v-close-popup />
           </q-card-actions>
         </q-form>
@@ -54,12 +55,12 @@
 
 <script setup>
 import { useDialogPluginComponent } from 'quasar';
-import { reactive, ref } from 'vue';
+import { reactive, ref, onBeforeMount } from 'vue';
 import { exerciseStore } from 'stores/exercises'
 
 defineEmits([...useDialogPluginComponent.emits])
 const { dialogRef, onDialogOK } = useDialogPluginComponent()
-const props = defineProps({ lesson: Object })
+const props = defineProps({ lesson: Object, exercise: Object })
 
 const choiceInput = ref('')
 const form = reactive({
@@ -92,4 +93,23 @@ async function saveExercise() {
     onDialogOK()
   }
 }
+
+async function updateExercise() {
+  isLoading.value = true
+  const res = await exerciseStore().updateExercise(props.lesson.id, props.exercise.id, { ...form })
+  if (res) {
+    isLoading.value = false
+    onDialogOK()
+  }
+}
+
+onBeforeMount(() => {
+  if (props.exercise) {
+    form.no = props.exercise.no
+    form.instruction = props.exercise.instruction
+    form.answer = props.exercise.answer
+    form.choices = props.exercise.choices
+    form.points = props.exercise.points
+  }
+})
 </script>
