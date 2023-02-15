@@ -2,21 +2,25 @@
   <q-page padding>
     <div v-if="exercises.length">
       <q-card>
-        <q-card-section class="text-h6 q-pb-none">
-          Test Yourself!
-        </q-card-section>
-
         <q-card-section>
-          <q-item-label class="text-subtitle2 text-primary">Exercise No. {{ exercises[current - 1].no }}</q-item-label>
-          <q-item-label class="text-subtitle2">Points: <span class="text-positive">{{
-            exercises[current - 1].points
-          }}</span></q-item-label>
-          <div class="q-py-md text-subtitle1">
+          <div class="bg-grey-9 rounded-borders q-pa-sm text-white">
+            <div class="text-h6  text-amber-6">
+              Test Yourself!
+            </div>
+            <q-item-label class="text-subtitle1">Exercise No. {{
+              exercises[current - 1].no
+            }}</q-item-label>
+            <q-item-label class="text-subtitle1">Points: <span class="text-positive">{{
+              exercises[current - 1].points
+            }}</span>
+            </q-item-label>
+          </div>
+          <div class="q-py-md q-px-sm text-subtitle1">
             {{ exercises[current - 1].instruction }}
           </div>
 
           <!-- Choices Display -->
-          <div class="q-px-md">
+          <div class="q-px-md rounded-borders bg-amber-1">
             <div v-for="item in exercises[current - 1].choices" :key="item.index">
               <q-radio v-model="answer" :val="item.index" :disable="checkIfTaken(exercises[current - 1])"
                 :label="item.text" checked-icon="task_alt" />

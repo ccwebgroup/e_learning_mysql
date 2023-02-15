@@ -76,7 +76,9 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>Scores</q-item-label>
-              <q-item-label class="text-subtitle2">108</q-item-label>
+              <q-item-label class="text-subtitle2 text-positive q-ml-md">+{{
+                authUser.points ? authUser.points : '--'
+              }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
