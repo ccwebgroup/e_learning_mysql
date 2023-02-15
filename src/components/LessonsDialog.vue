@@ -41,9 +41,11 @@
 </template>
 <style lang="scss">
 pre {
-  background: rgb(22, 22, 22);
+  background: rgb(34, 34, 34);
   color: white;
-  padding: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  border-left: 10px solid $amber-9;
 }
 </style>
 

@@ -15,7 +15,7 @@
     </q-header>
 
     <q-drawer dark v-model="leftDrawerOpen" show-if-above bordered class="bg-indigo-9">
-      <q-list dark dense>
+      <q-list dark>
         <q-item-label class="text-subtitle1" header>
           Essential Lessons
         </q-item-label>
@@ -54,27 +54,29 @@
         <q-list>
           <q-item>
             <q-item-section avatar>
-              <q-icon name="las la-trophy" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="text-h6 text-medium text-primary">Level 10</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item>
-            <q-item-section avatar>
               <q-icon name="las la-medal" />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-primary text-subtitle1">Beginner</q-item-label>
+              <q-item-label class="text-subtitle2 text-medium text-primary">{{
+                checkLevel(authUser.points)
+              }}</q-item-label>
             </q-item-section>
           </q-item>
+          <!-- <q-item>
+            <q-item-section avatar>
+              <q-icon name="las la-trophy" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
+            </q-item-section>
+          </q-item> -->
           <q-item>
             <q-item-section avatar>
               <q-icon name="las la-award" />
             </q-item-section>
             <q-item-section>
               <q-item-label>Scores</q-item-label>
-              <q-item-label class="text-subtitle1">108</q-item-label>
+              <q-item-label class="text-subtitle2">108</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -94,9 +96,10 @@ import LessonsListVue from 'src/components/LessonsList.vue';
 import { authStore } from 'src/stores/auth';
 import { lessonStore } from 'src/stores/lessons';
 
+
 const linksList = [
   {
-    title: 'MySQL',
+    title: 'Home Page',
     // caption: 'quasar.dev',
     icon: 'las la-home',
     link: '/'
@@ -119,6 +122,15 @@ function toggleRightDrawer() {
 
 function logout() {
   authStore().logOut();
+}
+
+function checkLevel(points) {
+  let level = 'Beginner'
+  if (points > 500) level = 'Amateur';
+  if (points > 1000) level = 'Beginner';
+  if (points > 2000) level = 'Expert';
+
+  return level;
 }
 
 </script>

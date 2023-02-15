@@ -74,7 +74,6 @@ function addChoice(index) {
   form.choices.push({
     index: index,
     text: choiceInput.value,
-    selected: false
   })
 
   choiceInput.value = ''

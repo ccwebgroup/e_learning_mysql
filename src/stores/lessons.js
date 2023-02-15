@@ -100,7 +100,6 @@ export const lessonStore = defineStore('lessons', {
 
     async getLessons() {
       try {
-        Loading.show()
         const colRef = collection(db, 'lessons')
         const q = query(colRef, orderBy('no', 'asc'))
 
@@ -112,7 +111,6 @@ export const lessonStore = defineStore('lessons', {
           if (i == -1) this.lessons.push(data)
         })
 
-        Loading.hide()
         return true;
       } catch (error) {
         console.log(error);
