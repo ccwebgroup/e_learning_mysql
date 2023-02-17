@@ -5,8 +5,8 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <!-- <q-toolbar-title>
-                                            E-Learning MySQL
-                                          </q-toolbar-title> -->
+                                              E-Learning MySQL
+                                            </q-toolbar-title> -->
         <q-space />
         <div v-if="!authUser"><q-btn to="/auth/login" flat label="Log In" /></div>
         <div v-else><span class="q-mr-md text-subtitle1">Hi, {{ authUser.firstname }}</span></div>
@@ -66,13 +66,13 @@
             </q-item-section>
           </q-item>
           <!-- <q-item>
-                                                                    <q-item-section avatar>
-                                                                      <q-icon name="las la-trophy" />
-                                                                    </q-item-section>
-                                                                    <q-item-section>
-                                                                      <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
-                                                                    </q-item-section>
-                                                                  </q-item> -->
+                                                                      <q-item-section avatar>
+                                                                        <q-icon name="las la-trophy" />
+                                                                      </q-item-section>
+                                                                      <q-item-section>
+                                                                        <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
+                                                                      </q-item-section>
+                                                                    </q-item> -->
           <q-item>
             <q-item-section avatar>
               <q-icon name="las la-award" />
@@ -135,8 +135,8 @@ function logout() {
 
 function checkLevel(points) {
   let level = 'Beginner'
-  if (points > 500) level = 'Amateur';
-  if (points > 1000) level = 'Beginner';
+  if (points > 500) level = 'Intermediate';
+  if (points > 1000) level = 'Advance';
   if (points > 2000) level = 'Expert';
 
   return level;

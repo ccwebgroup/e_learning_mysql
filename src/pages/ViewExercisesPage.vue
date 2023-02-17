@@ -21,7 +21,7 @@
             </div>
 
             <!-- Choices Display -->
-            <div class="q-px-md rounded-borders bg-amber-1">
+            <div v-if="exercises[current - 1].type !== 'Challenge'" class="q-px-md rounded-borders bg-amber-1">
               <div v-for="item in exercises[current
                 - 1].choices" :key="item.index">
                 <q-radio v-model="answer" :val="item.index" :disable="checkIfTaken(exercises[current - 1])"
@@ -31,7 +31,15 @@
               </div>
             </div>
 
-            <!-- <ExerciseForm :exercise="exercises[current - 1]" /> -->
+            <div v-else>
+              <QueryTest :prequery="exercises[current - 1].prequery"
+                @set-answer="(val) => answer = JSON.stringify(val)" />
+              <div class="q-pa-sm q-mt-sm bg-amber-1 rounded-borders">
+                <q-item-label class="q-mb-xs text-subtitle2 text-positive">Answer:</q-item-label>
+                <div>{{ answer }}</div>
+              </div>
+            </div>
+
             <q-card-actions align="right" class="q-pt-md">
               <q-btn @click="submitAnswer(exercises[current - 1])" :disable="checkIfTaken(exercises[current - 1])"
                 :loading="isLoading" unelevated padding="2px 20px"
@@ -72,7 +80,7 @@ import { exerciseStore } from 'src/stores/exercises';
 import { answerStore } from 'stores/answers'
 import { authStore } from 'stores/auth'
 import { useRoute } from 'vue-router';
-import ExerciseForm from 'src/components/ExerciseForm.vue';
+import QueryTest from 'src/components/QueryTest.vue';
 import { useQuasar } from 'quasar';
 
 const route = useRoute()
@@ -109,7 +117,7 @@ async function submitAnswer(data) {
 
   if (data.answer == answer.value) {
     points = data.points
-    message = `<div class="text-h6">Answer is correct! <span class="text-subtitle2 text-positive">+${points}</span> pts.</div>`
+    message = `<div class="text-h6">Answer is correct! <span class="text-h6 text-amber-6">+${points}</span> pts.</div>`
     color = "positive"
   } else {
     message = '<div class="text-h6">Sorry, wrong answer!</div>'

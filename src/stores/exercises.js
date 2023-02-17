@@ -14,6 +14,9 @@ export const exerciseStore = defineStore('exercises', {
       // parse in lesson no
       data.no = parseInt(data.no)
       data.points = parseInt(data.points)
+      if (data.type == 'Challenge') {
+        data.answer = JSON.stringify(data.answer)
+      }
 
       try {
         const lessonRef = doc(db, 'lessons', lessonId)
@@ -23,7 +26,7 @@ export const exerciseStore = defineStore('exercises', {
 
         return true;
       } catch (error) {
-
+        console.log(error);
       }
     },
 

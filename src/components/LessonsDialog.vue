@@ -65,9 +65,8 @@ import { lessonStore } from 'stores/lessons'
 
 import { QuillEditor } from "@vueup/vue-quill";
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-// import BlotFormatter from 'quill-blot-formatter-mobile/dist/BlotFormatter';
-import BlotFormatter from 'quill-blot-formatter';
-import ImageCompress from "quill-image-compress";
+// import BlotFormatter from 'quill-blot-formatter';
+// import ImageCompress from "quill-image-compress";
 
 
 defineEmits([...useDialogPluginComponent.emits])
@@ -127,19 +126,19 @@ const toolbar = [
   ["clean"],
 ];
 const modules = [
-  {
-    name: "blotFormatter",
-    module: BlotFormatter,
-    options: {
-      /* options */
-    },
-  },
-  {
-    name: "imageCompress",
-    module: ImageCompress,
-    options: {
-      imageType: "image/webp",
-    },
-  },
+  // {
+  //   name: "blotFormatter",
+  //   module: BlotFormatter,
+  //   options: {
+  //     /* options */
+  //   },
+  // },
+  // {
+  //   name: "imageCompress",
+  //   module: ImageCompress,
+  //   options: {
+  //     imageType: "image/webp",
+  //   },
+  // },
 ];
 </script>

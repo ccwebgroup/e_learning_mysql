@@ -28,12 +28,14 @@
                   {{ exercise.instruction }}
                 </div>
                 <q-item-label class="text-subtitle2 text-positive">
-                  <span>Answer: </span><span>{{ exercise.choices[exercise.answer - 1].text }}</span>
+                  <span>Answer: </span>
+                  <span v-if="exercise.type == 'quiz'">{{ exercise.choices[exercise.answer - 1].text }}</span>
+                  <span v-else>{{ exercise.answer }}</span>
                 </q-item-label>
               </q-card-section>
               <q-card-actions>
-                <q-btn @click="handleExerciseDialog(exercise)" unelevated flat text-color="dark" dense
-                  icon="las la-edit" label="Edit" no-caps />
+                <q-btn @click="handleExerciseDialog(exercise)" unelevated flat text-color="dark" dense icon="las la-edit"
+                  label="Edit" no-caps />
               </q-card-actions>
             </q-card>
           </div>
@@ -46,7 +48,7 @@
       <q-spinner-cube size="50px" color="primary" />
     </q-inner-loading>
 
-  </q-page>
+</q-page>
 </template>
 
 <style lang="scss">
