@@ -5,12 +5,15 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <!-- <q-toolbar-title>
-          E-Learning MySQL
-        </q-toolbar-title> -->
+                                            E-Learning MySQL
+                                          </q-toolbar-title> -->
         <q-space />
         <div v-if="!authUser"><q-btn to="/auth/login" flat label="Log In" /></div>
-        <div v-else><span class="q-mr-md text-subtitle1">Hi, {{ authUser.firstname }}</span><q-btn @click="logout" flat
-            label="Log Out" /></div>
+        <div v-else><span class="q-mr-md text-subtitle1">Hi, {{ authUser.firstname }}</span></div>
+
+        <q-avatar color="amber-6" v-if="authUser">
+          <q-icon name="person" color="primary" class="cursor-pointer" @click="toggleRightDrawer" />
+        </q-avatar>
       </q-toolbar>
     </q-header>
 
@@ -37,8 +40,8 @@
     </q-drawer>
 
     <!-- RIght Drawer -->
-    <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered :width="220">
-      <div v-if="authUser">
+    <q-drawer v-if="authUser" show-if-above v-model="rightDrawerOpen" side="right" bordered :width="220">
+      <div>
         <q-item>
           <q-item-section avatar>
             <q-avatar>
@@ -63,13 +66,13 @@
             </q-item-section>
           </q-item>
           <!-- <q-item>
-            <q-item-section avatar>
-              <q-icon name="las la-trophy" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
-            </q-item-section>
-          </q-item> -->
+                                                                    <q-item-section avatar>
+                                                                      <q-icon name="las la-trophy" />
+                                                                    </q-item-section>
+                                                                    <q-item-section>
+                                                                      <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
+                                                                    </q-item-section>
+                                                                  </q-item> -->
           <q-item>
             <q-item-section avatar>
               <q-icon name="las la-award" />
@@ -82,13 +85,17 @@
             </q-item-section>
           </q-item>
         </q-list>
+
+        <div class="q-pa-md">
+          <q-btn @click="logout" color="negative" rounded dense label="Log Out" class="full-width" />
+        </div>
       </div>
     </q-drawer>
 
     <q-page-container class="bg-grey-1">
       <router-view />
     </q-page-container>
-  </q-layout>
+</q-layout>
 </template>
 
 <script setup>

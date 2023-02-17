@@ -27,7 +27,7 @@
       <router-view />
     </q-page-container>
 
-  </q-layout>
+</q-layout>
 </template>
 
 <script setup>
@@ -41,8 +41,8 @@ function toggleLeftDrawer() {
 
 const adminLinks = [
   { link: "/", title: "Home Page", icon: "las la-home" },
-  { link: "/admin", title: "Users", icon: "las la-user-friends" },
-  { link: "/admin/lessons", title: "Lessons", icon: "las la-swatchbook" },
+  { link: "/admin/users", title: "Users", icon: "las la-user-friends" },
+  { link: "/admin", title: "Lessons", icon: "las la-swatchbook" },
 ];
 
 

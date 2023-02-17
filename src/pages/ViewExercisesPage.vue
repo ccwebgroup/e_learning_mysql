@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="flex flex-center">
-    <div>
+    <div v-show="!loading">
       <div v-if="exercises.length">
         <q-card>
           <q-card-section>
@@ -58,6 +58,11 @@
         </q-banner>
       </div>
     </div>
+
+    <!-- Loading design -->
+    <q-inner-loading :showing="loading">
+      <q-spinner-cube size="50px" color="primary" />
+    </q-inner-loading>
 </q-page>
 </template>
 
@@ -74,10 +79,16 @@ const route = useRoute()
 const current = ref(1)
 const answer = ref('')
 const $q = useQuasar()
+const loading = ref(true);
 
 const authUser = computed(() => authStore().authUser)
 const exercises = computed(() => exerciseStore().exercises)
-onBeforeMount(() => exerciseStore().getExercises(route.params.id))
+onBeforeMount(async () => {
+  await exerciseStore().getExercises(route.params.id)
+  setTimeout(() => {
+    loading.value = false
+  }, 1800)
+})
 
 function checkIfTaken(data) {
   let status = false

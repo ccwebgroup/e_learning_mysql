@@ -1,7 +1,10 @@
 <template>
   <q-dialog ref="dialogRef" maximized transition-show="slide-up" transition-hide="slide-down">
     <q-card class="q-px-md">
-      <q-card-section horizontal>
+      <q-card-actions align="right">
+        <q-btn dense flat icon="las la-times-circle" label="Close" v-close-popup />
+      </q-card-actions>
+      <q-card-section :horizontal="!$q.screen.lt.md">
         <q-card-section>
           <div class="text-h6 bg-primary text-white q-pa-sm rounded-borders q-mb-lg">Create Lesson</div>
           <q-form @submit="lesson ? update() : save()" class="q-gutter-y-sm">
@@ -34,7 +37,7 @@
         </q-card-section>
 
 
-        <q-separator spaced vertical />
+        <q-separator spaced :vertical="!$q.screen.lt.md" />
         <q-card-section>
           <div class="text-h6 bg-primary text-white q-pa-sm rounded-borders q-mb-lg">Preview</div>
           <div class="q-pa-sm">
@@ -42,7 +45,6 @@
           </div>
         </q-card-section>
       </q-card-section>
-
     </q-card>
 </q-dialog>
 </template>
