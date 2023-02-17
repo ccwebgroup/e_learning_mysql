@@ -21,7 +21,8 @@
 
           <!-- Choices Display -->
           <div class="q-px-md rounded-borders bg-amber-1">
-            <div v-for="item in exercises[current - 1].choices" :key="item.index">
+            <div v-for="item in exercises[current
+              - 1].choices" :key="item.index">
               <q-radio v-model="answer" :val="item.index" :disable="checkIfTaken(exercises[current - 1])"
                 :label="item.text" checked-icon="task_alt" />
               <q-chip v-if="checkIfTaken(exercises[current - 1]) && exercises[current - 1].answer == item.index"
@@ -35,17 +36,17 @@
               :loading="isLoading" unelevated padding="2px 20px"
               :label="checkIfTaken(exercises[current - 1]) ? 'Done!' : 'Submit'"
               :color="checkIfTaken(exercises[current - 1]) ? 'dark' : 'primary'" no-caps />
-            <q-btn v-if="exercises.length > 1" @click="current + 1" label="Next" />
           </q-card-actions>
         </q-card-section>
 
       </q-card>
       <div class="flex flex-center q-pa-md">
-        <q-pagination v-model="current" :max="exercises.length" :max-pages="6" direction-links outline color="amber-9"
-          active-design="unelevated" active-color="brown" active-text-color="white" />
+        <q-pagination @update:model-value="(val) => answer = ''" v-model="current" :max="exercises.length" :max-pages="6"
+          direction-links outline color="amber-9" active-design="unelevated" active-color="brown"
+          active-text-color="white" />
       </div>
     </div>
-  </q-page>
+</q-page>
 </template>
 
 <script setup>
@@ -69,8 +70,10 @@ onBeforeMount(() => exerciseStore().getExercises(route.params.id))
 function checkIfTaken(data) {
   let status = false
   if (authUser.value.exercises) {
-    if (authUser.value.exercises.includes(data.id)) status = true
-    answer.value = data.answer
+    if (authUser.value.exercises.includes(data.id)) {
+      status = true
+      answer.value = data.answer
+    }
   }
   return status;
 }
