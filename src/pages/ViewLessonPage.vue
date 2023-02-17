@@ -10,8 +10,11 @@
 
           <div class="rounded-borders bg-amber-9 bordered absolute-bottom q-mx-md q-mb-sm">
             <q-item-label header class="text-h6 text-white">Test Yourself With Exercises</q-item-label>
-            <div class="bg-white q-pa-md">
+            <div v-if="authUser" class="bg-white q-pa-md">
               <q-btn :to="`/exercises/${lesson.id}`" label="Start the exercises" color="primary" />
+            </div>
+            <div v-else class="bg-white q-pa-md">
+              <q-btn to="/auth/login" label="Log in to answer" color="primary" />
             </div>
           </div>
         </div>
@@ -27,7 +30,7 @@
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="primary" />
     </q-page-scroller>
-  </q-page>
+</q-page>
 </template>
 <style lang="scss">
 pre {
@@ -57,10 +60,12 @@ img
 <script setup>
 import { onBeforeMount, computed, ref, watch } from 'vue';
 import { lessonStore } from 'src/stores/lessons';
+import { authStore } from 'src/stores/auth';
 import { useRoute } from 'vue-router';
 
 const loading = ref(true);
 const route = useRoute()
+const authUser = computed(() => authStore().authUser)
 const lesson = computed(() => lessonStore().lesson)
 
 watch(lesson, (newVal, oldVal) => {
