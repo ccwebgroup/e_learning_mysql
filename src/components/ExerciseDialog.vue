@@ -45,8 +45,8 @@
           </div>
 
           <div v-if="form.type == 'Challenge'">
-            <QueryCard :prequery="exercise.prequery ? exercise.prequery : null" @update="(val) => form.prequery = val"
-              @capture-answer="(val) => form.answer = val" />
+            <QueryCard :prequery="exercise && exercise.prequery ? exercise.prequery : null"
+              @update="(val) => form.prequery = val" @capture-answer="(val) => form.answer = val" />
           </div>
 
           <div v-if="form.type == 'Quiz'">
@@ -65,7 +65,7 @@
         </q-form>
       </q-card-section>
     </q-card>
-</q-dialog>
+  </q-dialog>
 </template>
 
 <script setup>
