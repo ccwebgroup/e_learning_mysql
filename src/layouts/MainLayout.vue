@@ -5,8 +5,8 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <!-- <q-toolbar-title>
-                                              E-Learning MySQL
-                                            </q-toolbar-title> -->
+                                                                        E-Learning MySQL
+                                                                      </q-toolbar-title> -->
         <q-space />
         <div v-if="!authUser"><q-btn to="/auth/login" flat label="Log In" /></div>
         <div v-else><span class="q-mr-md text-subtitle1">Hi, {{ authUser.firstname }}</span></div>
@@ -17,7 +17,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer dark v-model="leftDrawerOpen" show-if-above bordered class="bg-indigo-9">
+    <q-drawer dark v-model="leftDrawerOpen" show-if-above bordered>
       <q-list dark>
         <q-item-label class="text-subtitle1" header>
           Essential Lessons
@@ -34,7 +34,7 @@
         </template>
 
 
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" class="q-my-md" />
         <LessonsListVue />
       </q-list>
     </q-drawer>
@@ -66,13 +66,13 @@
             </q-item-section>
           </q-item>
           <!-- <q-item>
-                                                                      <q-item-section avatar>
-                                                                        <q-icon name="las la-trophy" />
-                                                                      </q-item-section>
-                                                                      <q-item-section>
-                                                                        <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
-                                                                      </q-item-section>
-                                                                    </q-item> -->
+                                                                                                <q-item-section avatar>
+                                                                                                  <q-icon name="las la-trophy" />
+                                                                                                </q-item-section>
+                                                                                                <q-item-section>
+                                                                                                  <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
+                                                                                                </q-item-section>
+                                                                                              </q-item> -->
           <q-item>
             <q-item-section avatar>
               <q-icon name="las la-award" />
