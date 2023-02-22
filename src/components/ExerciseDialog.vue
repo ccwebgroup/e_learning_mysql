@@ -36,11 +36,11 @@
 
 
           <!-- Choices Display -->
-          <div v-if="form.type == 'Quiz'" class="q-px-md">
-            <div v-for="item in form.choices" :key="item.index">
+          <div v-if="form.type == 'Quiz'" class="q-gutter-y-sm">
+            <div v-for="item in form.choices" :key="item.index" class="bg-amber-2 rounded-borders q-px-xs">
+              <q-icon @click="deleteChoice(item)" name="las la-times" class="cursor-pointer " />
               <q-checkbox @change="form.answer == item.index" v-model="form.answer" :val="item.index" :label="item.text"
                 :true-value="item.index" :false-value="!item.index" />
-              <!-- <input type="checkbox" :checked="form.answer == item.index"><span>{{ item.text }}</span> -->
             </div>
           </div>
 
@@ -97,6 +97,10 @@ function addChoice(index) {
   })
 
   choiceInput.value = ''
+}
+
+function deleteChoice(choice) {
+  form.choices = form.choices.filter(item => item !== choice)
 }
 
 const isLoading = ref(false)
