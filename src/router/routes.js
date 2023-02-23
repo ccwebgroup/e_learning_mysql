@@ -8,12 +8,12 @@ const routes = [
     },
     children: [
       {
-        path: "/admin",
+        path: "/admin/users",
         name: "Users",
         component: () => import("pages/admin/UsersPage.vue"),
       },
       {
-        path: "/admin/lessons",
+        path: "/admin",
         component: () => import("pages/admin/LessonsPage.vue"),
       },
       {

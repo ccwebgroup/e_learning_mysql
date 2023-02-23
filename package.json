@@ -8,24 +8,25 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "build": "quasar build",
+    "deploy": "vercel"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.15.11",
     "@vueup/vue-quill": "^1.1.0",
     "@vueuse/firebase": "^9.12.0",
     "firebase": "^9.17.1",
     "pinia": "^2.0.11",
-    "quasar": "^2.6.0",
+    "quasar": "^2.11.6",
     "quill-blot-formatter": "^1.0.5",
-    "quill-blot-formatter-mobile": "^1.1.2",
     "quill-image-compress": "^1.2.29",
     "sql.js": "^1.8.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
-    "@quasar/app-vite": "^1.0.0",
+    "@quasar/app-vite": "^1.2.0",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",

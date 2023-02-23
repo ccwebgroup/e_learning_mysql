@@ -1,43 +1,52 @@
 <template>
   <q-dialog ref="dialogRef" maximized transition-show="slide-up" transition-hide="slide-down">
     <q-card class="q-px-md">
-      <q-card-section>
-        <q-form @submit="lesson ? update() : save()" class="q-gutter-y-sm">
-          <div class="row q-gutter-x-sm">
-            <div class="col-12 col-md-2">
-              <q-item-label>Lesson No.</q-item-label>
-              <q-input v-model="form.no" type="number" mask="#####" outlined dense autogrow
-                :rules="[(val) => !!val || 'No. is required!']" />
+      <q-card-actions align="right">
+        <q-btn dense flat icon="las la-times-circle" label="Close" v-close-popup />
+      </q-card-actions>
+      <q-card-section :horizontal="!$q.screen.lt.md">
+        <q-card-section>
+          <div class="text-h6 bg-primary text-white q-pa-sm rounded-borders q-mb-lg">Create Lesson</div>
+          <q-form @submit="lesson ? update() : save()" class="q-gutter-y-sm">
+            <div class="row q-gutter-x-xs">
+              <div class="col-12 col-md-2">
+                <q-item-label>Lesson No.</q-item-label>
+                <q-input v-model="form.no" type="number" mask="#####" outlined dense autogrow
+                  :rules="[(val) => !!val || 'No. is required!']" />
+              </div>
+              <div class="col-12 col-md-10">
+                <q-item-label>Lesson Title</q-item-label>
+                <q-input v-model="form.title" outlined dense autogrow :rules="[(val) => !!val || 'Title is required!']" />
+              </div>
             </div>
-            <div class="col-12 col-md-10">
-              <q-item-label>Lesson Title</q-item-label>
-              <q-input v-model="form.title" outlined dense autogrow :rules="[(val) => !!val || 'Title is required!']" />
+            <div>
+              <q-item-label>Caption</q-item-label>
+              <q-input v-model="form.caption" dense autogrow :rules="[(val) => !!val || 'Subtitle is required!']" />
             </div>
-          </div>
-          <div>
-            <q-item-label>Caption</q-item-label>
-            <q-input v-model="form.caption" dense autogrow :rules="[(val) => !!val || 'Subtitle is required!']" />
-          </div>
-          <div class="q-pt-md">
-            <q-item-label>Content</q-item-label>
-            <QuillEditor v-model:content="content" ref="quillRef" placeholder="Write content here..." contentType="html"
-              theme="snow" :toolbar="toolbar" :modules="modules" />
-          </div>
+            <div>
+              <q-item-label>Content</q-item-label>
+              <QuillEditor v-model:content="content" ref="quillRef" placeholder="Write content here..." contentType="html"
+                theme="snow" :toolbar="toolbar" :modules="modules" />
+            </div>
 
-          <q-card-actions align="right">
-            <q-btn type="submit" unelevated color="primary" label="Submit" no-caps />
-            <q-btn flat label="Cancel" v-close-popup no-caps />
-          </q-card-actions>
-        </q-form>
+            <q-card-actions align="right">
+              <q-btn type="submit" unelevated color="primary" label="Submit" no-caps />
+              <q-btn flat label="Cancel" v-close-popup no-caps />
+            </q-card-actions>
+          </q-form>
+        </q-card-section>
+
+
+        <q-separator spaced :vertical="!$q.screen.lt.md" />
+        <q-card-section>
+          <div class="text-h6 bg-primary text-white q-pa-sm rounded-borders q-mb-lg">Preview</div>
+          <div class="q-pa-sm">
+            <div v-html="content"></div>
+          </div>
+        </q-card-section>
       </q-card-section>
-      <q-separator spaced />
-      <div class="text-h6">Preview</div>
-
-      <div class="q-pa-sm">
-        <div v-html="content"></div>
-      </div>
     </q-card>
-  </q-dialog>
+</q-dialog>
 </template>
 <style lang="scss">
 pre {
@@ -56,9 +65,8 @@ import { lessonStore } from 'stores/lessons'
 
 import { QuillEditor } from "@vueup/vue-quill";
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-// import BlotFormatter from 'quill-blot-formatter-mobile/dist/BlotFormatter';
-import BlotFormatter from 'quill-blot-formatter';
-import ImageCompress from "quill-image-compress";
+// import BlotFormatter from 'quill-blot-formatter';
+// import ImageCompress from "quill-image-compress";
 
 
 defineEmits([...useDialogPluginComponent.emits])
@@ -118,19 +126,19 @@ const toolbar = [
   ["clean"],
 ];
 const modules = [
-  {
-    name: "blotFormatter",
-    module: BlotFormatter,
-    options: {
-      /* options */
-    },
-  },
-  {
-    name: "imageCompress",
-    module: ImageCompress,
-    options: {
-      imageType: "image/webp",
-    },
-  },
+  // {
+  //   name: "blotFormatter",
+  //   module: BlotFormatter,
+  //   options: {
+  //     /* options */
+  //   },
+  // },
+  // {
+  //   name: "imageCompress",
+  //   module: ImageCompress,
+  //   options: {
+  //     imageType: "image/webp",
+  //   },
+  // },
 ];
 </script>
