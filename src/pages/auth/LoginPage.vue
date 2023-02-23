@@ -2,17 +2,25 @@
   <q-page padding class="bg-gradient">
     <div class="row justify-end q-mt-md">
       <img width="500" src="~assets/firm.svg" class="absolute-center">
+
       <q-card style="width: 320px; height: 500px;" class="q-mr-md">
         <q-card-section class="row justify-center">
-          <!-- <q-avatar size="180px" >
-          <img src="/icons/favicon-128x128.png" alt="app_logo">
-          </q-avatar> -->
           <q-card dark class="full-width text-center bg-primary">
-            <q-card-section>
-              <div class="text-h4 text-bold">E-Learning
+            <div class="flex q-gutter-x-sm q-pa-sm">
+              <div>
+                <q-avatar size="60px">
+                  <img src="/icons/favicon-128x128.png" alt="app_logo">
+                </q-avatar>
               </div>
-              <div class="text-h6 text-bold">MySQL</div>
-            </q-card-section>
+              <div class="column">
+                <div class="text-h5">
+                  E-Learning
+                </div>
+                <div class="text-h6 text-amber-4">
+                  MySQL
+                </div>
+              </div>
+            </div>
           </q-card>
         </q-card-section>
         <q-card-section>

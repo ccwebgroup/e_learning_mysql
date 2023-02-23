@@ -3,10 +3,9 @@
     <q-header class="q-py-sm">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-
-        <!-- <q-toolbar-title>
-                                                                        E-Learning MySQL
-                                                                      </q-toolbar-title> -->
+        <q-avatar size="50px">
+          <img src="/icons/favicon-128x128.png">
+        </q-avatar>
         <q-space />
         <div v-if="!authUser"><q-btn to="/auth/login" flat label="Log In" /></div>
         <div v-else><span class="q-mr-md text-subtitle1">Hi, {{ authUser.firstname }}</span></div>
@@ -95,7 +94,7 @@
     <q-page-container class="bg-grey-1">
       <router-view />
     </q-page-container>
-</q-layout>
+  </q-layout>
 </template>
 
 <script setup>
