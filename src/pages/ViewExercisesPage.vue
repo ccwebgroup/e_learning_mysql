@@ -8,9 +8,6 @@
               <div class="text-h6  text-amber-6">
                 Test Yourself!
               </div>
-              <q-item-label class="text-subtitle1">Exercise No. {{
-                exercises[current - 1].no
-              }}</q-item-label>
               <q-item-label class="text-subtitle1">Points: <span class="text-positive">{{
                 exercises[current - 1].points
               }}</span>
@@ -22,8 +19,8 @@
 
             <!-- Choices Display -->
             <div v-if="exercises[current - 1].type !== 'Challenge'" class="q-px-md rounded-borders bg-amber-1">
-              <div v-for="item in exercises[current
-                - 1].choices" :key="item.index">
+              <div v-for="item in shuffleChoices(exercises[current
+                - 1].choices)" :key="item.index">
                 <q-radio v-model="answer" :val="item.index" :disable="checkIfTaken(exercises[current - 1])"
                   :label="item.text" checked-icon="task_alt" />
                 <q-chip v-if="checkIfTaken(exercises[current - 1]) && exercises[current - 1].answer == item.index"
@@ -90,13 +87,21 @@ const $q = useQuasar()
 const loading = ref(true);
 
 const authUser = computed(() => authStore().authUser)
-const exercises = computed(() => exerciseStore().exercises)
+const exercises = computed(() => exerciseStore().shuffledExcercises)
 onBeforeMount(async () => {
   await exerciseStore().getExercises(route.params.id)
   setTimeout(() => {
     loading.value = false
   }, 1800)
 })
+
+function shuffleChoices(data) {
+  let shuffled = data
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+  return shuffled
+}
 
 function checkIfTaken(data) {
   let status = false
