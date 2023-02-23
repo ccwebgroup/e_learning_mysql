@@ -9,6 +9,17 @@ export const exerciseStore = defineStore('exercises', {
     exercise: null
   }),
 
+  getters: {
+    shuffledExcercises: (state) => {
+      let shuffled = state.exercises
+        .map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value)
+
+      return shuffled
+    }
+  },
+
   actions: {
     async addExercise(lessonId, data) {
       // parse in lesson no
