@@ -97,3 +97,9 @@ exports.deleteUserFirestore = functions.auth.user().onDelete(async (user) => {
 
   }
 });
+
+exports.setTypeOnSignUp = functions.firestore.document('users/{docId}')
+  .onCreate(async (snap, context) => {
+    const user = snap.data();
+    await auth.setCustomUserClaims(snap.id, { [user.type]: true });
+  });

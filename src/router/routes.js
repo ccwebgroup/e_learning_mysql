@@ -8,8 +8,13 @@ const routes = [
     },
     children: [
       {
+        path: "/admin/common-users",
+        name: "Common Users",
+        component: () => import("pages/admin/CommonUsersPage.vue"),
+      },
+      {
         path: "/admin/users",
-        name: "Users",
+        name: "Manage Users",
         component: () => import("pages/admin/UsersPage.vue"),
       },
       {

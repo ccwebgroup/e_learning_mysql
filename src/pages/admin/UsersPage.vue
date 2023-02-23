@@ -30,7 +30,7 @@
 
     <q-dialog v-model="userDialog">
       <q-card style="width: 380px;">
-        <q-card-section class="text-h6">{{ editmode? 'Update': 'Add' }} User</q-card-section>
+        <q-card-section class="text-h6">{{ editmode ? 'Update' : 'Add' }} User</q-card-section>
         <q-card-section>
           <q-form ref="userForm" @reset="resetForm" @submit="editmode ? update() : save()">
             <q-select v-model="form.type" outlined dense :options="userTypes" label="User Type"
@@ -127,10 +127,10 @@ onBeforeMount(() => getAllUsers());
 // User Table
 const filter = ref("");
 const columns = [
-  { name: "type", label: "Role", field: "type", align: "left" },
-  { name: "fullname", label: "Full Name", field: "fullname", align: "left" },
+  { name: "type", label: "Role", field: "type", align: "left", sortable: true },
+  { name: "fullname", label: "Full Name", field: "fullname", align: "left", sortable: true },
   // { name: "username", label: "Username", field: "username", align: "left" },
-  { name: "email", label: "Email", field: "email", align: "left" },
+  { name: "email", label: "Email", field: "email", align: "left", sortable: true },
   { name: "actions", field: "actions", align: "center" },
 ];
 </script>

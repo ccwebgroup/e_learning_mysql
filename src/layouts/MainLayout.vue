@@ -49,43 +49,50 @@
           </q-item-section>
           <q-item-section>
             <q-item-label class="text-subtitle1 text-medium text-primary">{{ authUser.fullname }}</q-item-label>
+            <q-item-label v-if="authUser.type === 'admin'"
+              class="text-caption text-medium text-primary text-capitalize">{{ authUser.type
+              }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-separator spaced />
-        <q-item-label header class="text-subtitle1">Progress</q-item-label>
-        <q-list>
-          <q-item>
-            <q-item-section avatar>
-              <q-icon name="las la-medal" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="text-subtitle2 text-medium text-primary">{{
-                checkLevel(authUser.points)
-              }}</q-item-label>
-            </q-item-section>
-          </q-item>
-          <!-- <q-item>
-                                                                                                <q-item-section avatar>
-                                                                                                  <q-icon name="las la-trophy" />
-                                                                                                </q-item-section>
-                                                                                                <q-item-section>
-                                                                                                  <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
-                                                                                                </q-item-section>
-                                                                                              </q-item> -->
-          <q-item>
-            <q-item-section avatar>
-              <q-icon name="las la-award" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>Scores</q-item-label>
-              <q-item-label class="text-subtitle2 text-positive q-ml-md">+{{
-                authUser.points ? authUser.points : '--'
-              }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
+        <div v-if="authUser.type !== 'admin'">
 
-        <div class="q-pa-md">
+          <q-item-label header class="text-subtitle1">Progress</q-item-label>
+          <q-list>
+            <q-item>
+              <q-item-section avatar>
+                <q-icon name="las la-medal" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label class="text-subtitle2 text-medium text-primary">{{
+                  checkLevel(authUser.points)
+                }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <!-- <q-item>
+                                                                                                  <q-item-section avatar>
+                                                                                                    <q-icon name="las la-trophy" />
+                                                                                                  </q-item-section>
+                                                                                                  <q-item-section>
+                                                                                                    <q-item-label class="text-primary text-subtitle1">{{Beginner}}</q-item-label>
+                                                                                                  </q-item-section>
+                                                                                                </q-item> -->
+            <q-item>
+              <q-item-section avatar>
+                <q-icon name="las la-award" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Scores</q-item-label>
+                <q-item-label class="text-subtitle2 text-positive q-ml-md">
+                  <span v-if="authUser.points">{{ `+${authUser.points}` }}</span>
+                  <span v-else>0</span>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+
+        <div class="q-pa-md" style="margin-top: 60px;">
           <q-btn @click="logout" color="negative" rounded dense label="Log Out" class="full-width" />
         </div>
       </div>

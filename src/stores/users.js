@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import { defineStore } from 'pinia'
 import { db, functions } from 'src/boot/firebase'
 import { Loading, Dialog } from 'quasar'
@@ -6,7 +6,8 @@ import { httpsCallable } from "firebase/functions";
 
 export const userStore = defineStore('users', {
   state: () => ({
-    users: []
+    users: [],
+    commonUsers: []
   }),
 
   actions: {
@@ -98,6 +99,22 @@ export const userStore = defineStore('users', {
         Loading.hide();
       });
     },
+
+    async getCommonUsers() {
+      this.commonUsers = []
+      try {
+        const usersRef = collection(db, 'users')
+        const q = query(usersRef, where('type', '==', 'user'))
+
+        const qSnap = await getDocs(q)
+        qSnap.forEach(snap => {
+          const data = { ...snap.data(), id: snap.id }
+          this.commonUsers.push(data)
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
   }
 })
