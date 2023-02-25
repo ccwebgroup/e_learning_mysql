@@ -1,6 +1,6 @@
-import { addDoc, collection, doc, getDocs, orderBy, query, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
 import { defineStore } from 'pinia'
-import { Loading } from 'quasar'
+import { Dialog, Loading } from 'quasar'
 import { db } from 'src/boot/firebase'
 
 export const exerciseStore = defineStore('exercises', {
@@ -79,6 +79,29 @@ export const exerciseStore = defineStore('exercises', {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async deleteExercise(lessonId, exerciseId) {
+      Dialog.create({
+        title: 'Please confirm!',
+        message: 'Are you sure you want to delete the exercise?',
+        cancel: true
+      }).onOk(async () => {
+        try {
+          Loading.show()
+          const lessonRef = doc(db, 'lessons', lessonId)
+          const exerciseRef = doc(lessonRef, 'exercises', exerciseId)
+          await deleteDoc(exerciseRef)
+
+          const i = this.exercises.findIndex(item => item.id == exerciseId)
+          this.exercises.splice(i, 1)
+
+          Loading.hide()
+          return true;
+        } catch (error) {
+          console.log(error);
+        }
+      })
     },
   }
 })

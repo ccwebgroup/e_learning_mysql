@@ -27,16 +27,19 @@
                 <div class="q-py-sm text-subtitle1">
                   {{ exercise.instruction }}
                 </div>
-                <q-item-label class="text-subtitle2 text-positive">
-                  <span>Answer: </span>
-                  <span v-if="exercise.type == 'quiz'">{{ exercise.choices[exercise.answer - 1].text }}</span>
+                <q-item-label class="bg-amber-1 rounded-borders q-pa-sm">
+                  <span class="text-subtitle2 text-positive">Answer: </span>
+                  <span v-if="exercise.type == 'Quiz'">{{ exercise.choices[exercise.answer - 1].text }}</span>
                   <span v-else>{{ exercise.answer }}</span>
                 </q-item-label>
               </q-card-section>
-              <q-card-actions>
-                <q-btn @click="handleExerciseDialog(exercise)" unelevated flat text-color="dark" dense icon="las la-edit"
-                  label="Edit" no-caps />
-              </q-card-actions>
+              <div class="q-pa-sm">
+                <q-btn-group flat stretch class="q-gutter-x-sm">
+                  <q-btn @click="handleExerciseDialog(exercise)" icon="las la-edit" label="Edit" no-caps />
+                  <q-btn @click="deleteExercise(exercise)" color="negative" flat icon="las la-trash" label="Delete"
+                    no-caps />
+                </q-btn-group>
+              </div>
             </q-card>
           </div>
         </div>
@@ -48,7 +51,7 @@
       <q-spinner-cube size="50px" color="primary" />
     </q-inner-loading>
 
-</q-page>
+  </q-page>
 </template>
 
 <style lang="scss">
@@ -98,4 +101,8 @@ onBeforeMount(() => lessonStore().getLesson(route.params.id))
 
 const exercises = computed(() => exerciseStore().exercises)
 onBeforeMount(() => exerciseStore().getExercises(route.params.id))
+
+function deleteExercise(data) {
+  exerciseStore().deleteExercise(data.lessonId, data.id)
+}
 </script>

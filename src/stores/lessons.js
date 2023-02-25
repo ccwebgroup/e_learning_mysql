@@ -70,7 +70,7 @@ export const lessonStore = defineStore('lessons', {
         try {
           Loading.show()
           const lessonRef = doc(db, 'lessons', id)
-          const lessonSnap = await deleteDoc(lessonRef)
+          await deleteDoc(lessonRef)
 
           const i = this.lessons.findIndex(item => item.id == id)
           this.lessons.splice(i, 1)
