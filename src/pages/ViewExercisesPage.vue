@@ -2,7 +2,7 @@
   <q-page padding class="flex flex-center">
     <div v-show="!loading">
       <div v-if="exercises.length">
-        <q-card style="width: 500px">
+        <q-card>
           <q-card-section>
             <div class="bg-grey-9 rounded-borders q-pa-sm text-white">
               <div class="text-h6  text-amber-6">

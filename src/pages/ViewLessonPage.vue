@@ -7,7 +7,7 @@
             <q-card-section class="text-h6">{{ lesson.title }}</q-card-section>
           </q-card>
 
-          <div v-html="lesson.content" style="margin-bottom: 90px;"></div>
+          <div v-html="lesson.content" style="margin-bottom: 120px;"></div>
 
           <div class="rounded-borders bg-amber-9 bordered absolute-bottom q-mx-md q-mb-sm">
             <q-item-label header class="text-h6 text-white">Test Yourself With Exercises</q-item-label>
@@ -31,7 +31,7 @@
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn icon="keyboard_arrow_up" size="13px" round color="primary" class="glossy" />
     </q-page-scroller>
-</q-page>
+  </q-page>
 </template>
 <style lang="scss">
 pre {
