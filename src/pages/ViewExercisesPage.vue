@@ -2,13 +2,13 @@
   <q-page padding class="flex flex-center">
     <div v-show="!loading">
       <div v-if="exercises.length">
-        <q-card>
+        <q-card style="width: 500px">
           <q-card-section>
             <div class="bg-grey-9 rounded-borders q-pa-sm text-white">
               <div class="text-h6  text-amber-6">
                 Test Yourself!
               </div>
-              <q-item-label class="text-subtitle1">Points: <span class="text-positive">{{
+              <q-item-label class="text-subtitle1">Points: <span class="text-light-green-13">+{{
                 exercises[current - 1].points
               }}</span>
               </q-item-label>
@@ -19,12 +19,10 @@
 
             <!-- Choices Display -->
             <div v-if="exercises[current - 1].type !== 'Challenge'" class="q-px-md rounded-borders bg-amber-1">
-              <div v-for="item in shuffleChoices(exercises[current
-                - 1].choices)" :key="item.index">
-                <q-radio v-model="answer" :val="item.index" :disable="checkIfTaken(exercises[current - 1])"
-                  :label="item.text" checked-icon="task_alt" />
-                <q-chip v-if="checkIfTaken(exercises[current - 1]) && exercises[current - 1].answer == item.index"
-                  color="positive" size="sm" text-color="white">Answer</q-chip>
+              <div v-for="(item, i) in shuffled" :key="i">
+                <q-radio v-model="answer" :val="item.index" checked-icon="task_alt" :label="item.text" />
+                <!-- <q-chip v-if="checkIfTaken(exercises[current - 1]) && exercises[current - 1].answer == item.index"
+                  color="positive" size="sm" text-color="white">Answer</q-chip> -->
               </div>
             </div>
 
@@ -38,10 +36,8 @@
             </div>
 
             <q-card-actions align="right" class="q-pt-md">
-              <q-btn @click="submitAnswer(exercises[current - 1])" :disable="checkIfTaken(exercises[current - 1])"
-                :loading="isLoading" unelevated padding="2px 20px"
-                :label="checkIfTaken(exercises[current - 1]) ? 'Done, you can only take this quiz once!' : 'Submit'"
-                :color="checkIfTaken(exercises[current - 1]) ? 'dark' : 'primary'" no-caps />
+              <q-btn @click="submitAnswer(exercises[current - 1])" :loading="isLoading" unelevated padding="2px 20px"
+                label="Submit" color="primary" no-caps />
             </q-card-actions>
           </q-card-section>
 
@@ -72,7 +68,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, computed, ref } from 'vue';
+import { onBeforeMount, computed, ref, watch, watchEffect } from 'vue';
 import { exerciseStore } from 'src/stores/exercises';
 import { answerStore } from 'stores/answers'
 import { authStore } from 'stores/auth'
@@ -95,6 +91,7 @@ onBeforeMount(async () => {
   }, 1800)
 })
 
+const shuffled = ref(null)
 function shuffleChoices(data) {
   let shuffled = data
     .map(value => ({ value, sort: Math.random() }))
@@ -102,6 +99,17 @@ function shuffleChoices(data) {
     .map(({ value }) => value)
   return shuffled
 }
+
+watchEffect(() => {
+  if (exercises.value.length) {
+    shuffled.value = shuffleChoices(exercises.value[current.value
+      - 1].choices)
+  }
+})
+watch(current, (newVal) => {
+  shuffled.value = shuffleChoices(exercises.value[current.value
+    - 1].choices)
+})
 
 function checkIfTaken(data) {
   let status = false
@@ -128,6 +136,9 @@ async function submitAnswer(data) {
     message = '<div class="text-h6">Sorry, wrong answer!</div>'
     color = "negative"
   }
+
+  current.value += 1
+  answer.value = ''
 
   $q.notify({
     message: message,
