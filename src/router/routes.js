@@ -33,18 +33,18 @@ const routes = [
   },
 
   // Authentication Routes
-  {
-    path: "/auth",
-    redirect: "/auth/login",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [
-      {
-        path: "/auth/login",
-        name: "Login",
-        component: () => import("pages/auth/LoginPage.vue"),
-      },
-    ],
-  },
+  // {
+  //   path: "/auth",
+  //   redirect: "/auth/login",
+  //   component: () => import("layouts/MainLayout.vue"),
+  //   children: [
+  //     {
+  //       path: "/auth/login",
+  //       name: "Login",
+  //       component: () => import("pages/auth/LoginPage.vue"),
+  //     },
+  //   ],
+  // },
 
   // Main Routes
   {

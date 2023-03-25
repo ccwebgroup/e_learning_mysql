@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialogRef" transition-show="slide-up" transition-hide="fade">
-    <q-card style="width: 520px;">
+    <q-card style="width: 450px;">
       <q-card-section class="text-h5 text-bold">Register</q-card-section>
       <q-card-section>
         <q-form @submit="register" class="q-gutter-sm">

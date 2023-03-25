@@ -1,44 +1,50 @@
 <template>
-  <q-page padding class="bg-gradient">
-    <div class="row justify-end q-mt-md">
-      <img width="500" src="~assets/firm.svg" class="absolute-center">
-
-      <q-card style="width: 320px; height: 500px;" class="q-mr-md">
-        <q-card-section class="row justify-center">
-          <q-card dark class="full-width text-center bg-primary">
-            <div class="flex q-gutter-x-sm q-pa-sm">
-              <div>
-                <q-avatar size="60px">
-                  <img src="/icons/favicon-128x128.png" alt="app_logo">
-                </q-avatar>
-              </div>
-              <div class="column">
-                <div class="text-h5">
-                  E-Learning
+  <q-page class="bg-gradient flex flex-center">
+    <div>
+      <div class="row justify-between">
+        <div class="col-12 col-md-6">
+          <q-img width="500px" src="~assets/firm.svg" />
+        </div>
+        <div class="col-12 col-md-5 item-center">
+          <q-card style="width: 320px;" class="q-mx-auto">
+            <q-card-section class="row justify-center">
+              <q-card dark class="full-width text-center bg-primary">
+                <div class="flex q-gutter-x-sm q-pa-sm">
+                  <div>
+                    <q-avatar size="60px">
+                      <img src="/icons/favicon-128x128.png" alt="app_logo">
+                    </q-avatar>
+                  </div>
+                  <div class="column">
+                    <div class="text-h5">
+                      E-Learning
+                    </div>
+                    <div class="text-h6 text-amber-4">
+                      MySQL
+                    </div>
+                  </div>
                 </div>
-                <div class="text-h6 text-amber-4">
-                  MySQL
+              </q-card>
+            </q-card-section>
+            <q-card-section>
+              <q-form @submit="login" class="q-gutter-sm">
+                <q-input v-model="form.email" placeholder="Username" outlined dense
+                  :rules="[(val) => !!val || 'Field is required!']" />
+                <q-input v-model="form.password" placeholder="Password" type="password" outlined dense
+                  :rules="[(val) => !!val || 'Field is required!']" />
+                <div v-if="loginError" class="text-negative text-center">
+                  {{ loginError }}
                 </div>
-              </div>
-            </div>
+                <q-card-actions align="center" class="q-gutter-y-sm">
+                  <q-btn :loading="loadingBtn" label="Log In" type="submit" class="full-width" color="primary" />
+                  <q-btn @click="handleRgister" v-close-popup label="Create an account" class="full-width" flat
+                    color="primary" no-caps />
+                </q-card-actions>
+              </q-form>
+            </q-card-section>
           </q-card>
-        </q-card-section>
-        <q-card-section>
-          <q-form @submit="login" class="q-gutter-sm">
-            <q-input v-model="form.email" placeholder="Username" outlined dense
-              :rules="[(val) => !!val || 'Field is required!']" />
-            <q-input v-model="form.password" placeholder="Password" type="password" outlined dense
-              :rules="[(val) => !!val || 'Field is required!']" />
-            <div v-if="loginError" class="text-negative text-center">
-              {{ loginError }}
-            </div>
-            <q-card-actions align="center" class="q-gutter-y-sm">
-              <q-btn :loading="loadingBtn" label="Log In" type="submit" class="full-width" color="primary" />
-              <q-btn @click="handleRgister" label="Create an account" class="full-width" flat color="primary" no-caps />
-            </q-card-actions>
-          </q-form>
-        </q-card-section>
-      </q-card>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>

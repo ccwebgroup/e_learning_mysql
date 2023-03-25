@@ -7,7 +7,7 @@
           <img src="/icons/favicon-128x128.png">
         </q-avatar>
         <q-space />
-        <div v-if="!authUser"><q-btn to="/auth/login" flat label="Log In" /></div>
+        <div v-if="!authUser"><q-btn @click="handleLogin" flat label="Log In" /></div>
         <div v-else><span class="q-mr-md text-subtitle1">Hi, {{ authUser.firstname }}</span></div>
 
         <q-avatar color="amber-6" v-if="authUser">
@@ -124,7 +124,15 @@ import LessonsListVue from 'src/components/LessonsList.vue';
 import { authStore } from 'src/stores/auth';
 import { lessonStore } from 'src/stores/lessons';
 import { referenceStore } from 'src/stores/references';
+import LoginDialog from "src/components/LoginDialog.vue";
+import { useQuasar } from "quasar";
 
+const $q = useQuasar()
+function handleLogin() {
+  $q.dialog({
+    component: LoginDialog
+  })
+}
 
 
 const linksList = [

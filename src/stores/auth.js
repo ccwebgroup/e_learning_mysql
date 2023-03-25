@@ -46,7 +46,7 @@ export const authStore = defineStore("auth", {
         const cred = await signInWithEmailAndPassword(auth, data.email + '@gmail.com', data.password)
         if (cred.user) {
           const user = await userStore().fetchUser(cred.user.uid)
-          this.router.replace('/');
+          // this.router.replace('/');
         }
 
         return true;
@@ -76,7 +76,7 @@ export const authStore = defineStore("auth", {
       Loading.show()
       await signOut(auth)
       Loading.hide()
-      this.router.replace('/auth')
+      // this.router.replace('/auth')
     },
 
     handleAuthState() {

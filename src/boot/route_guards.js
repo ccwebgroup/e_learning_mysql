@@ -22,15 +22,15 @@ export default boot(async ({ router }) => {
 
     if (to.meta.requiresAuth && !isAuthenticated.value) {
       return {
-        path: '/auth'
+        path: '/not-found'
       }
     }
 
-    if (to.name == "Login" && isAuthenticated.value) {
-      return {
-        path: from.path
-      }
-    }
+    // if (to.name == "Login" && isAuthenticated.value) {
+    //   return {
+    //     path: from.path
+    //   }
+    // }
 
     if (to.meta.isAdmin) {
       if (!tokenResult.claims || !tokenResult.claims.admin)
