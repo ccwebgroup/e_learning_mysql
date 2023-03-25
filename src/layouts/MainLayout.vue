@@ -36,6 +36,19 @@
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" class="q-my-md" />
         <LessonsListVue />
       </q-list>
+      <q-item-label class="text-subtitle1" header>
+        References
+      </q-item-label>
+      <q-list separator>
+        <q-item v-for="item in references" :key="item.id" :href="item.url" target="_blank">
+          <q-item-section>
+            <q-item-label class="text-subtitle1">{{ item.name }}</q-item-label>
+            <q-item-label class="text-subtitle2">{{ item.url }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item-label v-if="!references.length" class="text-subtitle1 text-center text-grey-7 q-mt-sm">No data
+          available</q-item-label>
+      </q-list>
     </q-drawer>
 
     <!-- RIght Drawer -->
@@ -110,6 +123,8 @@ import EssentialLink from 'components/EssentialLink.vue'
 import LessonsListVue from 'src/components/LessonsList.vue';
 import { authStore } from 'src/stores/auth';
 import { lessonStore } from 'src/stores/lessons';
+import { referenceStore } from 'src/stores/references';
+
 
 
 const linksList = [
@@ -121,7 +136,12 @@ const linksList = [
   },
 ]
 
-onBeforeMount(() => lessonStore().getLessons())
+const references = computed(() => referenceStore().references)
+
+onBeforeMount(() => {
+  lessonStore().getLessons()
+  referenceStore().getAll()
+})
 
 const leftDrawerOpen = ref(false)
 const authUser = computed(() => authStore().authUser)

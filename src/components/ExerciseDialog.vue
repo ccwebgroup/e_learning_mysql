@@ -6,11 +6,11 @@
       </q-card-section>
       <q-card-section class="q-py-none">
         <q-form @submit="exercise ? updateExercise() : saveExercise()" class="q-gutter-sm">
-          <div>
+          <!-- <div>
             <q-item-label class="q-mb-xs text-subtitle2 text-primary">Exercise Type</q-item-label>
             <q-select v-model="form.type" :rules="[val => !!val || 'Fill instructions!']" dense outlined
               :options="['Quiz', 'Challenge']" style="max-width: 200px" />
-          </div>
+          </div> -->
           <div class="flex q-gutter-x-sm">
             <q-input v-model="form.no" dense mask="#" fill-mask="0" reverse-fill-mask :rules="[
               val => (val !== null && val !== '' && parseInt(val) != NaN) || 'Please type a number',

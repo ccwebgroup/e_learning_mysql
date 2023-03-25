@@ -17,6 +17,7 @@ export const authStore = defineStore("auth", {
         const user = credential.user
         await userStore().addUserToFirestore(user.uid, data)
 
+        this.router.replace('/');
         return { success: true }
       } catch (error) {
         const errorCode = error.code;

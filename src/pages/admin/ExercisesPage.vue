@@ -29,7 +29,8 @@
                 </div>
                 <q-item-label class="bg-amber-1 rounded-borders q-pa-sm">
                   <span class="text-subtitle2 text-positive">Answer: </span>
-                  <span v-if="exercise.type == 'Quiz'">{{ exercise.choices[exercise.answer - 1].text }}</span>
+                  <span v-if="exercise.type == 'Quiz'"><span>{{ exercise.choices.filter(item => item.index ==
+                    exercise.answer)[0].text }}</span></span>
                   <span v-else>{{ exercise.answer }}</span>
                 </q-item-label>
               </q-card-section>

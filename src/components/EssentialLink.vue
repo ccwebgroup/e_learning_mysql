@@ -1,5 +1,5 @@
 <template>
-  <q-item dense clickable :to="link" active-class="text-amber-5" exact>
+  <q-item clickable :to="link" active-class="text-amber-5" exact>
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>

@@ -44,6 +44,7 @@ const adminLinks = [
   { link: "/admin/common-users", title: "Common Users", icon: "las la-users" },
   { link: "/admin/users", title: "Manage Users", icon: "las la-users-cog" },
   { link: "/admin", title: "Lessons", icon: "las la-swatchbook" },
+  { link: "/admin/references", title: "References", icon: "las la-link" },
 ];
 
 
